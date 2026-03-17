@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: file-manager
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.58.11.250:3306/simulation?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: simulation
+    password: sim_admin
+
+  # Redis配置
+  data:
+    redis:
+      host: ${REDIS_HOST:10.59.104.152}
+      port: ${REDIS_PORT:8086}
+      password: ${REDIS_PASSWORD:B213547b69b13224}
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+      enabled: true
+
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.traespace.filemanager.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:traespace-file-manager-secret-key-change-in-production-2024}
+  expire-time: 7200000  # 2小时（毫秒）
+
+# 日志配置
+logging:
+  level:
+    com.traespace.filemanager: INFO
+    com.traespace.filemanager.mapper: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
