@@ -151,14 +151,67 @@ function getFieldTypeName(type) {
  * 下载Excel模板
  */
 async function downloadExcelTemplate() {
+    const loadingToast = showLoading('正在生成模板...');
+    console.log('[下载] 开始下载 Excel 模板');
+
     try {
-        showLoading('正在生成模板...');
-        await API.template.downloadExcel();
-        showSuccess('模板下载成功');
+        // 添加超时控制
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30秒超时
+
+        const token = localStorage.getItem('auth_token');
+        console.log('[下载] Token 存在:', !!token);
+
+        const response = await fetch('/api/template/download/excel', {
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : ''
+            },
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+        console.log('[下载] 响应状态:', response.status);
+
+        if (response.status === 401) {
+            console.error('[下载] 401 未授权');
+            showError('登录已过期，请重新登录');
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('[下载] 请求失败, status:', response.status, 'response:', errorText);
+            throw new Error(`下载失败 (${response.status})`);
+        }
+
+        console.log('[下载] 开始读取 blob...');
+        const blob = await response.blob();
+        console.log('[下载] blob 大小:', blob.size, 'bytes');
+
+        // 下载文件
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'data_template.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        console.log('[下载] 完成');
+        showSuccess('Excel模板下载成功');
     } catch (error) {
-        showError(error.message || '模板下载失败');
+        console.error('[下载] 异常:', error);
+        if (error.name === 'AbortError') {
+            showError('下载超时，请稍后重试');
+        } else {
+            showError(error.message || '下载失败，请检查网络连接');
+        }
     } finally {
-        closeModal();
+        if (loadingToast) {
+            loadingToast.remove();
+        }
     }
 }
 
@@ -166,13 +219,64 @@ async function downloadExcelTemplate() {
  * 下载CSV模板
  */
 async function downloadCsvTemplate() {
+    const loadingToast = showLoading('正在生成模板...');
+    console.log('[下载] 开始下载 CSV 模板');
+
     try {
-        showLoading('正在生成模板...');
-        await API.template.downloadCsv();
-        showSuccess('模板下载成功');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+        const token = localStorage.getItem('auth_token');
+        console.log('[下载] Token 存在:', !!token);
+
+        const response = await fetch('/api/template/download/csv', {
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : ''
+            },
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+        console.log('[下载] 响应状态:', response.status);
+
+        if (response.status === 401) {
+            console.error('[下载] 401 未授权');
+            showError('登录已过期，请重新登录');
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('[下载] 请求失败, status:', response.status, 'response:', errorText);
+            throw new Error(`下载失败 (${response.status})`);
+        }
+
+        console.log('[下载] 开始读取 blob...');
+        const blob = await response.blob();
+        console.log('[下载] blob 大小:', blob.size, 'bytes');
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'data_template.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        console.log('[下载] 完成');
+        showSuccess('CSV模板下载成功');
     } catch (error) {
-        showError(error.message || '模板下载失败');
+        console.error('[下载] 异常:', error);
+        if (error.name === 'AbortError') {
+            showError('下载超时，请稍后重试');
+        } else {
+            showError(error.message || '下载失败，请检查网络连接');
+        }
     } finally {
-        closeModal();
+        if (loadingToast) {
+            loadingToast.remove();
+        }
     }
 }
