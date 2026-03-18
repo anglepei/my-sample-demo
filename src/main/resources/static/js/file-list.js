@@ -117,7 +117,7 @@ async function loadFileList(params = {}) {
 function renderFileList(result) {
     const tableBody = document.getElementById('fileListTableBody');
 
-    if (!result.list || result.list.length === 0) {
+    if (!result.records || result.records.length === 0) {
         tableBody.innerHTML = `
             <tr>
                 <td colspan="4" class="text-center text-secondary" style="padding: var(--spacing-xl);">
@@ -128,20 +128,20 @@ function renderFileList(result) {
         return;
     }
 
-    tableBody.innerHTML = result.list.map(file => `
+    tableBody.innerHTML = result.records.map(file => `
         <tr>
             <td>
                 <div class="flex-center" style="gap: var(--spacing-sm); justify-content: flex-start;">
                     <span>${getFileIcon(file.fileType)}</span>
-                    <span>${escapeHtml(file.originalName)}</span>
+                    <span>${escapeHtml(file.fileName)}</span>
                 </div>
             </td>
-            <td>${formatNumber(file.rowCount)} 条</td>
+            <td>${formatNumber(file.dataCount)} 条</td>
             <td>${formatDate(file.uploadTime, 'YYYY-MM-DD HH:mm')}</td>
             <td>
                 <div class="table-actions">
                     <a class="table-action-link" onclick="viewFileDetail(${file.id})">详情</a>
-                    <a class="table-action-link" onclick="downloadFile(${file.id}, '${escapeHtml(file.originalName)}')">下载</a>
+                    <a class="table-action-link" onclick="downloadFile(${file.id}, '${escapeHtml(file.fileName)}')">下载</a>
                     ${isAdmin() ? `<a class="table-action-link danger" onclick="deleteFile(${file.id})">删除</a>` : ''}
                 </div>
             </td>

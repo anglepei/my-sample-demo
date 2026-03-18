@@ -1,5 +1,6 @@
 package com.traespace.filemanager.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -15,6 +16,7 @@ import java.util.*;
  * @author Traespace
  * @since 2024-03-17
  */
+@Slf4j
 public class CsvUtil {
 
     private static final String DEFAULT_SEPARATOR = ",";
@@ -33,27 +35,38 @@ public class CsvUtil {
 
             // 读取表头
             String headerLine = reader.readLine();
+            log.info("[CSV解析] 表头行: [{}]", headerLine);
             if (headerLine == null) {
                 return result;
             }
 
             String[] headers = parseCsvLine(headerLine);
+            log.info("[CSV解析] 解析后表头数量: {}", headers.length);
 
             // 读取数据
             String line;
+            int lineNum = 1;
             while ((line = reader.readLine()) != null) {
+                log.info("[CSV解析] 第{}行原始数据: [{}]", lineNum, line);
                 if (line.trim().isEmpty()) {
+                    log.info("[CSV解析] 第{}行为空，跳过", lineNum);
+                    lineNum++;
                     continue;
                 }
 
                 String[] values = parseCsvLine(line);
+                log.info("[CSV解析] 第{}行解析后字段数: {}", lineNum, values.length);
                 Map<String, String> rowData = new LinkedHashMap<>();
                 for (int i = 0; i < headers.length && i < values.length; i++) {
                     rowData.put(headers[i].trim(), values[i].trim());
                 }
                 result.add(rowData);
+                log.info("[CSV解析] 第{}行数据: {}", lineNum, rowData);
+                lineNum++;
             }
+            log.info("[CSV解析] 总共解析出{}条数据行", result.size());
         } catch (IOException e) {
+            log.error("[CSV解析] 读取失败", e);
             throw new RuntimeException("CSV文件读取失败", e);
         }
 
@@ -61,7 +74,7 @@ public class CsvUtil {
     }
 
     /**
-     * 生成CSV文件
+     * 生成CSV文件（所有字段均用引号包裹，确保长数字不被转换格式）
      *
      * @param data    数据列表
      * @param headers 表头列表
@@ -70,20 +83,21 @@ public class CsvUtil {
     public static byte[] generateCsv(List<Map<String, String>> data, List<String> headers) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
-            // 写入表头
-            out.write(String.join(DEFAULT_SEPARATOR, headers).getBytes(StandardCharsets.UTF_8));
+            // 写入表头（所有字段名用引号包裹）
+            List<String> quotedHeaders = new ArrayList<>();
+            for (String header : headers) {
+                quotedHeaders.add("\"" + escapeCsvValue(header) + "\"");
+            }
+            out.write(String.join(DEFAULT_SEPARATOR, quotedHeaders).getBytes(StandardCharsets.UTF_8));
             out.write("\n".getBytes(StandardCharsets.UTF_8));
 
-            // 写入数据
+            // 写入数据（所有值用引号包裹，强制文本格式）
             for (Map<String, String> rowData : data) {
                 List<String> values = new ArrayList<>();
                 for (String header : headers) {
                     String value = rowData.getOrDefault(header, "");
-                    // 处理包含逗号的值，用引号包裹
-                    if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
-                        value = "\"" + value.replace("\"", "\"\"") + "\"";
-                    }
-                    values.add(value);
+                    // 始终用引号包裹，确保长数字作为文本处理
+                    values.add("\"" + escapeCsvValue(value) + "\"");
                 }
                 out.write(String.join(DEFAULT_SEPARATOR, values).getBytes(StandardCharsets.UTF_8));
                 out.write("\n".getBytes(StandardCharsets.UTF_8));
@@ -93,6 +107,17 @@ public class CsvUtil {
         } catch (IOException e) {
             throw new RuntimeException("CSV文件生成失败", e);
         }
+    }
+
+    /**
+     * 转义CSV值中的特殊字符
+     */
+    private static String escapeCsvValue(String value) {
+        if (value == null) {
+            return "";
+        }
+        // 将双引号转义为两个双引号
+        return value.replace("\"", "\"\"");
     }
 
     /**

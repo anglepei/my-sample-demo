@@ -71,7 +71,7 @@ function logPageLoad() {
                             </thead>
                             <tbody id="logTableBody">
                                 <tr>
-                                    <td colspan="6" class="text-center text-secondary" style="padding: var(--spacing-xl);">
+                                    <td colspan="7" class="text-center text-secondary" style="padding: var(--spacing-xl);">
                                         加载中...
                                     </td>
                                 </tr>
@@ -109,7 +109,7 @@ async function loadLogList(params = {}) {
         console.error('Load log list error:', error);
         document.getElementById('logTableBody').innerHTML = `
             <tr>
-                <td colspan="6" class="text-center text-danger" style="padding: var(--spacing-xl);">
+                <td colspan="7" class="text-center text-danger" style="padding: var(--spacing-xl);">
                     加载失败: ${error.message}
                 </td>
             </tr>
@@ -123,10 +123,10 @@ async function loadLogList(params = {}) {
 function renderLogList(result) {
     const tableBody = document.getElementById('logTableBody');
 
-    if (!result.list || result.list.length === 0) {
+    if (!result.records || result.records.length === 0) {
         tableBody.innerHTML = `
             <tr>
-                <td colspan="6" class="text-center text-secondary" style="padding: var(--spacing-xl);">
+                <td colspan="7" class="text-center text-secondary" style="padding: var(--spacing-xl);">
                     暂无日志记录
                 </td>
             </tr>
@@ -136,24 +136,34 @@ function renderLogList(result) {
 
     const operationNames = {
         'UPLOAD': '上传文件',
-        'DELETE': '删除文件'
+        'DELETE': '删除文件',
+        'DOWNLOAD': '下载文件'
     };
 
     const operationTypes = {
         'UPLOAD': 'success',
-        'DELETE': 'danger'
+        'DELETE': 'danger',
+        'DOWNLOAD': 'info'
     };
 
-    tableBody.innerHTML = result.list.map(log => `
+    tableBody.innerHTML = result.records.map(log => {
+        // 处理操作类型枚举
+        let operationKey = log.operationType || log.operation || 'OTHER';
+        if (typeof operationKey === 'object' && operationKey.name) {
+            operationKey = operationKey.name;
+        }
+
+        return `
         <tr>
             <td>${log.username || '-'}</td>
-            <td><span class="text-${operationTypes[log.operation] || 'info'}">${operationNames[log.operation] || log.operation}</span></td>
+            <td><span class="text-${operationTypes[operationKey] || 'info'}">${operationNames[operationKey] || operationKey}</span></td>
             <td>${log.description || '-'}</td>
             <td>${log.requestIp || '-'}</td>
             <td>${formatDate(log.createTime, 'YYYY-MM-DD HH:mm:ss')}</td>
             <td>${log.costTime ? log.costTime + 'ms' : '-'}</td>
         </tr>
-    `).join('');
+        `;
+    }).join('');
 }
 
 /**

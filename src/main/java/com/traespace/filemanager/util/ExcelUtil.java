@@ -58,7 +58,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 生成Excel文件
+     * 生成Excel文件（所有单元格均为文本格式）
      *
      * @param data    数据列表
      * @param headers 表头列表
@@ -68,10 +68,22 @@ public class ExcelUtil {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("数据");
 
+            // 创建文本格式的单元格样式
+            CellStyle textStyle = workbook.createCellStyle();
+            DataFormat format = workbook.createDataFormat();
+            textStyle.setDataFormat(format.getFormat("@")); // @ 表示文本格式
+
+            // 设置列宽（文本格式需要更宽的列）
+            for (int i = 0; i < headers.size(); i++) {
+                sheet.setColumnWidth(i, 20 * 256); // 20个字符宽度
+            }
+
             // 写入表头
             Row headerRow = sheet.createRow(0);
             for (int i = 0; i < headers.size(); i++) {
-                headerRow.createCell(i).setCellValue(headers.get(i));
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers.get(i));
+                cell.setCellStyle(textStyle);
             }
 
             // 写入数据
@@ -80,7 +92,10 @@ public class ExcelUtil {
                 Map<String, String> rowData = data.get(i);
                 int col = 0;
                 for (String value : rowData.values()) {
-                    row.createCell(col++).setCellValue(value);
+                    Cell cell = row.createCell(col++);
+                    cell.setCellStyle(textStyle);
+                    // 确保值作为字符串存储
+                    cell.setCellValue(value != null ? value : "");
                 }
             }
 

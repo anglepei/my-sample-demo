@@ -1,6 +1,7 @@
 package com.traespace.filemanager.dto.response.file;
 
 import com.traespace.filemanager.vo.file.DataDetailItemVO;
+import com.traespace.filemanager.vo.file.FileDetailVO;
 
 import java.util.List;
 
@@ -13,19 +14,24 @@ import java.util.List;
 public class FileDetailResponse {
 
     /**
-     * 文件ID
+     * 文件详情
      */
-    private Long fileId;
-
-    /**
-     * 文件名
-     */
-    private String fileName;
+    private FileDetailVO file;
 
     /**
      * 数据详情列表
      */
-    private List<DataDetailItemVO> details;
+    private List<DataDetailItemVO> list;
+
+    /**
+     * 当前页码
+     */
+    private Integer page;
+
+    /**
+     * 每页大小
+     */
+    private Integer size;
 
     /**
      * 总条数
@@ -35,35 +41,44 @@ public class FileDetailResponse {
     public FileDetailResponse() {
     }
 
-    public FileDetailResponse(Long fileId, String fileName, List<DataDetailItemVO> details, Long total) {
-        this.fileId = fileId;
-        this.fileName = fileName;
-        this.details = details;
+    public FileDetailResponse(FileDetailVO file, List<DataDetailItemVO> list, Integer page, Integer size, Long total) {
+        this.file = file;
+        this.list = list;
+        this.page = page;
+        this.size = size;
         this.total = total;
     }
 
-    public Long getFileId() {
-        return fileId;
+    public FileDetailVO getFile() {
+        return file;
     }
 
-    public void setFileId(Long fileId) {
-        this.fileId = fileId;
+    public void setFile(FileDetailVO file) {
+        this.file = file;
     }
 
-    public String getFileName() {
-        return fileName;
+    public List<DataDetailItemVO> getList() {
+        return list;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setList(List<DataDetailItemVO> list) {
+        this.list = list;
     }
 
-    public List<DataDetailItemVO> getDetails() {
-        return details;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setDetails(List<DataDetailItemVO> details) {
-        this.details = details;
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public Long getTotal() {
@@ -72,5 +87,21 @@ public class FileDetailResponse {
 
     public void setTotal(Long total) {
         this.total = total;
+    }
+
+    // 保留旧方法以兼容
+    @Deprecated
+    public Long getFileId() {
+        return file != null ? file.getId() : null;
+    }
+
+    @Deprecated
+    public String getFileName() {
+        return file != null ? file.getOriginalName() : null;
+    }
+
+    @Deprecated
+    public List<DataDetailItemVO> getDetails() {
+        return list;
     }
 }
