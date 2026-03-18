@@ -8,14 +8,19 @@ import com.traespace.filemanager.dto.response.file.FileDetailResponse;
 import com.traespace.filemanager.dto.response.file.FileListResponse;
 import com.traespace.filemanager.enums.OperationType;
 import com.traespace.filemanager.service.file.FileService;
+import com.traespace.filemanager.service.file.FileService.FileDownloadResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 文件控制器
@@ -23,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Traespace
  * @since 2024-03-17
  */
+@Slf4j
 @Tag(name = "文件接口", description = "文件上传、下载、查询、删除")
 @RestController
 @RequestMapping("/api/file")
@@ -73,19 +79,41 @@ public class FileController {
      * 下载文件
      */
     @Operation(summary = "下载文件")
-    @GetMapping("/download/{fileId}")
+    @GetMapping(value = "/download/{fileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @Log(value = OperationType.DOWNLOAD, description = "下载文件")
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) {
+        log.info("========== [文件下载] 收到下载请求，fileId={} ==========", fileId);
+
         Long userId = UserContext.getUserId();
-        byte[] fileBytes = fileService.downloadFile(userId, fileId);
+        log.info("[文件下载] userId={}", userId);
+
+        FileDownloadResult fileData = fileService.downloadFileWithMetadata(userId, fileId);
+
+        log.info("[文件下载] 文件生成完成，filename={}, size={} bytes", fileData.filename(), fileData.data().length);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "data.xlsx");
+
+        // 处理中文文件名编码
+        String filename = fileData.filename();
+        String encodedFilename = URLEncoder.encode(filename, StandardCharsets.UTF_8)
+                .replaceAll("\\+", "%20");
+        headers.setContentDispositionFormData("attachment", encodedFilename);
+
+        log.info("[文件下载] 返回文件，Content-Disposition: attachment; filename=\"{}\", bytes={}", encodedFilename, fileData.data().length);
 
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(fileBytes);
+                .body(fileData.data());
+    }
+
+    /**
+     * 测试端点 - 用于排查问题
+     */
+    @GetMapping("/test")
+    public Result<String> test() {
+        log.info("========== [测试端点] 被调用 ==========");
+        return Result.success("测试成功");
     }
 
     /**

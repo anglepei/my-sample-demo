@@ -51,6 +51,20 @@ public interface FileService {
     byte[] downloadFile(Long userId, Long fileId);
 
     /**
+     * 下载文件（包含文件名元数据）
+     *
+     * @param userId 用户ID
+     * @param fileId 文件ID
+     * @return 文件数据及元数据
+     */
+    FileDownloadResult downloadFileWithMetadata(Long userId, Long fileId);
+
+    /**
+     * 文件下载结果
+     */
+    record FileDownloadResult(byte[] data, String filename) {}
+
+    /**
      * 删除文件
      *
      * @param userId 用户ID

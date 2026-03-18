@@ -17,6 +17,7 @@ import com.traespace.filemanager.mapper.FileRecordMapper;
 import com.traespace.filemanager.mapper.UserMapper;
 import com.traespace.filemanager.service.field.FieldConfigService;
 import com.traespace.filemanager.service.file.FileService;
+import com.traespace.filemanager.service.file.FileService.FileDownloadResult;
 import com.traespace.filemanager.util.CsvUtil;
 import com.traespace.filemanager.util.ExcelUtil;
 import com.traespace.filemanager.util.ValidationUtil;
@@ -210,11 +211,27 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public byte[] downloadFile(Long userId, Long fileId) {
+        FileDownloadResult result = downloadFileWithMetadata(userId, fileId);
+        return result.data();
+    }
+
+    @Override
+    public FileDownloadResult downloadFileWithMetadata(Long userId, Long fileId) {
+        log.info("[文件下载] ========== 开始下载流程 ==========");
+        log.info("[文件下载] userId={}, fileId={}", userId, fileId);
+
         // 查询文件记录
         FileRecord fileRecord = fileRecordMapper.selectById(fileId);
+        log.info("[文件下载] 查询文件记录完成，fileRecord={}", fileRecord != null ? "存在" : "不存在");
+
         if (fileRecord == null || !fileRecord.getUserId().equals(userId)) {
+            log.error("[文件下载] 文件不存在或无权限，fileRecord={}, userId={}, fileUserId={}",
+                    fileRecord != null, userId, fileRecord != null ? fileRecord.getUserId() : "N/A");
             throw new BizException(ErrorCode.FILE_NOT_FOUND);
         }
+
+        log.info("[文件下载] 文件信息：originalName={}, fileType={}, rowCount={}",
+                fileRecord.getOriginalName(), fileRecord.getFileType(), fileRecord.getRowCount());
 
         // 查询数据明细
         LambdaQueryWrapper<DataDetail> wrapper = new LambdaQueryWrapper<>();
@@ -222,16 +239,34 @@ public class FileServiceImpl implements FileService {
                 .orderByAsc(DataDetail::getRowNum);
 
         List<DataDetail> details = dataDetailMapper.selectList(wrapper);
+        log.info("[文件下载] 查询到{}条数据明细", details.size());
 
         // 生成文件
         List<Map<String, String>> data = convertToMapList(details);
-        List<String> headers = buildHeaders();
+        log.info("[文件下载] 转换后的数据条数={}", data.size());
 
-        if (fileRecord.getFileType() == FileType.XLSX || fileRecord.getFileType() == FileType.XLS) {
-            return ExcelUtil.generateExcel(data, headers);
-        } else {
-            return CsvUtil.generateCsv(data, headers);
+        List<String> headers = buildHeaders(details);
+        log.info("[文件下载] 表头数量={}", headers.size());
+
+        byte[] fileBytes;
+        try {
+            if (fileRecord.getFileType() == FileType.XLSX || fileRecord.getFileType() == FileType.XLS) {
+                log.info("[文件下载] 开始生成Excel文件");
+                fileBytes = ExcelUtil.generateExcel(data, headers);
+                log.info("[文件下载] Excel文件生成完成，大小={} bytes", fileBytes.length);
+            } else {
+                log.info("[文件下载] 开始生成CSV文件");
+                fileBytes = CsvUtil.generateCsv(data, headers);
+                log.info("[文件下载] CSV文件生成完成，大小={} bytes", fileBytes.length);
+            }
+        } catch (Exception e) {
+            log.error("[文件下载] 文件生成失败", e);
+            throw new RuntimeException("文件生成失败", e);
         }
+
+        log.info("[文件下载] ========== 下载流程完成，文件名={}, 文件大小={} bytes ==========",
+                fileRecord.getOriginalName(), fileBytes.length);
+        return new FileDownloadResult(fileBytes, fileRecord.getOriginalName());
     }
 
     @Override
@@ -401,14 +436,30 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     * 构建表头
+     * 构建表头（固定字段 + 自定义字段）
      */
-    private List<String> buildHeaders() {
-        // 固定字段 + 自定义字段（这里简化处理，实际应从字段配置获取）
+    private List<String> buildHeaders(List<DataDetail> details) {
         List<String> headers = new ArrayList<>();
+        // 固定字段
         headers.add("序号");
         headers.add("身份证号");
         headers.add("手机号");
+
+        // 从数据明细中提取自定义字段名
+        if (details != null && !details.isEmpty()) {
+            for (DataDetail detail : details) {
+                Map<String, String> customFields = detail.getCustomFields();
+                if (customFields != null) {
+                    for (String fieldName : customFields.keySet()) {
+                        if (!headers.contains(fieldName)) {
+                            headers.add(fieldName);
+                        }
+                    }
+                }
+            }
+        }
+
+        log.info("[文件下载] 表头: {}", headers);
         return headers;
     }
 }

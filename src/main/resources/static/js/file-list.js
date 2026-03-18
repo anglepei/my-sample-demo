@@ -263,11 +263,59 @@ function viewFileDetail(fileId) {
  * 下载文件
  */
 async function downloadFile(fileId, filename) {
+    console.log('[前端下载] 开始下载，fileId=', fileId, 'filename=', filename);
+    showLoading('正在下载...');
+
+    const token = getToken();
+    const downloadUrl = `/api/file/download/${fileId}?_t=${Date.now()}`;
+
+    console.log('[前端下载] 下载URL=', downloadUrl, 'token存在=', !!token);
+
     try {
-        showLoading('正在下载...');
-        await API.file.download(fileId, filename);
+        // 使用原生fetch，添加更多缓存控制
+        const response = await fetch(downloadUrl, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            },
+            cache: 'no-store'
+        });
+
+        console.log('[前端下载] 响应status=', response.status, 'ok=', response.ok);
+
+        if (response.status === 401) {
+            window.location.href = '/login.html';
+            return;
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('[前端下载] 错误响应:', errorText);
+            throw new Error(`下载失败: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        console.log('[前端下载] Blob size=', blob.size, 'type=', blob.type);
+
+        if (blob.size === 0) {
+            throw new Error('下载文件为空');
+        }
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
         showSuccess('下载成功');
     } catch (error) {
+        console.error('[前端下载] 错误:', error);
         showError(error.message || '下载失败');
     } finally {
         closeModal();

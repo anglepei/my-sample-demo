@@ -181,6 +181,7 @@ function uploadFile(url, formData, onProgress) {
  * 文件下载（使用Blob）
  */
 async function downloadFile(url, filename, params = {}) {
+    console.log('[API下载] 开始下载，url=', url, 'filename=', filename, 'params=', params);
     const token = getToken();
     const query = Object.keys(params)
         .filter(key => params[key] !== undefined && params[key] !== null)
@@ -189,13 +190,19 @@ async function downloadFile(url, filename, params = {}) {
 
     const queryString = query ? '?' + query : '';
     const downloadUrl = CONFIG.API_BASE + url + queryString;
+    console.log('[API下载] 完整URL=', downloadUrl);
 
     try {
+        console.log('[API下载] 发起fetch请求');
         const response = await fetch(downloadUrl, {
             headers: {
-                'Authorization': token ? `Bearer ${token}` : ''
-            }
+                'Authorization': token ? `Bearer ${token}` : '',
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+            },
+            cache: 'no-store'
         });
+        console.log('[API下载] 收到响应，status=', response.status, 'ok=', response.ok);
 
         if (response.status === 401) {
             removeToken();
@@ -205,12 +212,20 @@ async function downloadFile(url, filename, params = {}) {
         }
 
         if (!response.ok) {
+            console.error('[API下载] 响应不正常，status=', response.status);
+            // 尝试读取错误信息
+            const errorText = await response.text();
+            console.error('[API下载] 错误响应内容:', errorText);
             throw new Error('下载失败');
         }
 
+        console.log('[API下载] 开始转换为Blob');
         const blob = await response.blob();
+        console.log('[API下载] Blob生成完成，size=', blob.size, 'type=', blob.type);
         downloadBlob(blob, filename);
+        console.log('[API下载] downloadBlob调用完成');
     } catch (error) {
+        console.error('[API下载] 下载过程出错:', error);
         throw error;
     }
 }
@@ -219,14 +234,23 @@ async function downloadFile(url, filename, params = {}) {
  * 下载Blob文件
  */
 function downloadBlob(blob, filename) {
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    console.log('[下载Blob] 开始，filename=', filename, 'blob.size=', blob.size);
+    try {
+        const url = URL.createObjectURL(blob);
+        console.log('[下载Blob] ObjectURL创建成功=', url);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        console.log('[下载Blob] 触发点击下载');
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        console.log('[下载Blob] 下载完成');
+    } catch (error) {
+        console.error('[下载Blob] 失败:', error);
+        throw error;
+    }
 }
 
 /**
@@ -259,7 +283,7 @@ const API = {
         upload: (formData, onProgress) => uploadFile('/file/upload', formData, onProgress),
         list: (params) => get('/file/list', params),
         detail: (id, params) => get(`/file/detail/${id}`, params),
-        download: (id, filename) => downloadFile(`/file/download/${id}`, filename),
+        download: (id, filename) => downloadFile(`/file/download/${id}?_t=${Date.now()}`, filename),
         delete: (id) => del(`/file/delete/${id}`)
     },
 
