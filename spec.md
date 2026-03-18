@@ -198,6 +198,7 @@
 | username | VARCHAR(64) | 用户名，唯一 |
 | password | VARCHAR(128) | 密码（加密） |
 | role | VARCHAR(16) | 角色：USER/ADMIN |
+| status | TINYINT | 状态（1:正常 0:禁用） |
 | create_time | DATETIME | 创建时间 |
 | update_time | DATETIME | 更新时间 |
 
@@ -292,9 +293,12 @@ WHERE JSON_EXTRACT(custom_fields, '$.姓名') = '张三';
 |--------|------|------|
 | id | BIGINT | 主键 |
 | user_id | BIGINT | 用户ID |
-| operation | VARCHAR(32) | 操作类型：UPLOAD/DELETE |
+| username | VARCHAR(64) | 用户名 |
+| operation_type | VARCHAR(32) | 操作类型：UPLOAD/DELETE等 |
 | target_id | BIGINT | 目标ID（文件ID） |
-| detail | VARCHAR(500) | 操作详情 |
+| description | VARCHAR(500) | 操作详情 |
+| request_ip | VARCHAR(64) | 请求IP |
+| cost_time | BIGINT | 耗时（毫秒） |
 | create_time | DATETIME | 创建时间 |
 
 ---

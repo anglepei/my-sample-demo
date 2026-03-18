@@ -630,9 +630,9 @@ public class OperationLogAspect {
         // 构建日志记录
         OperationLog operationLog = OperationLog.builder()
                 .userId(UserContext.getUserId())
-                .operation(logAnnotation.operation().name())
+                .operationType(logAnnotation.operation().name())
                 .targetId(extractTargetId(point.getArgs()))
-                .detail(logAnnotation.value())
+                .description(logAnnotation.value())
                 .costTime(costTime)
                 .createTime(LocalDateTime.now())
                 .build();
@@ -754,6 +754,7 @@ CREATE TABLE t_user (
     username VARCHAR(64) NOT NULL UNIQUE COMMENT '用户名',
     password VARCHAR(128) NOT NULL COMMENT '密码（加密）',
     role VARCHAR(16) NOT NULL DEFAULT 'USER' COMMENT '角色：USER/ADMIN',
+    status TINYINT NOT NULL DEFAULT 1 COMMENT '状态（1:正常 0:禁用）',
     create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     INDEX idx_username (username)
@@ -805,9 +806,11 @@ CREATE TABLE t_data_detail (
 CREATE TABLE t_operation_log (
     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
     user_id BIGINT NOT NULL COMMENT '用户ID',
-    operation VARCHAR(32) NOT NULL COMMENT '操作类型：UPLOAD/DELETE',
+    username VARCHAR(64) NOT NULL COMMENT '用户名',
+    operation_type VARCHAR(32) NOT NULL COMMENT '操作类型：UPLOAD/DELETE等',
     target_id BIGINT COMMENT '目标ID（文件ID）',
-    detail VARCHAR(500) COMMENT '操作详情',
+    description VARCHAR(500) COMMENT '操作详情',
+    request_ip VARCHAR(64) COMMENT '请求IP',
     cost_time BIGINT COMMENT '耗时（毫秒）',
     create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     INDEX idx_user_id (user_id),

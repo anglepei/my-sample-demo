@@ -18,8 +18,8 @@ Java 17 / Spring Boot 3.2 / MyBatis-Plus / MySQL 8.0 / Redis
 - 日志格式：log.info("[模块] 操作, param={}", param)
 
 ## 禁止事项
-- 不使用 System.out.println
-- 不使用 java.util.Date
+- 不使用 System.out.println（测试代码除外）
+- 不使用 java.util.Date（项目代码使用 java.time.LocalDateTime，第三方库API强制要求的情况除外）
 - 不手动拼接SQL
 - 不在Controller写业务逻辑
 
