@@ -263,13 +263,10 @@ function viewFileDetail(fileId) {
  * 下载文件
  */
 async function downloadFile(fileId, filename) {
-    console.log('[前端下载] 开始下载，fileId=', fileId, 'filename=', filename);
     showLoading('正在下载...');
 
     const token = getToken();
     const downloadUrl = `/api/file/download/${fileId}?_t=${Date.now()}`;
-
-    console.log('[前端下载] 下载URL=', downloadUrl, 'token存在=', !!token);
 
     try {
         // 使用原生fetch，添加更多缓存控制
@@ -284,8 +281,6 @@ async function downloadFile(fileId, filename) {
             cache: 'no-store'
         });
 
-        console.log('[前端下载] 响应status=', response.status, 'ok=', response.ok);
-
         if (response.status === 401) {
             window.location.href = '/login.html';
             return;
@@ -298,7 +293,6 @@ async function downloadFile(fileId, filename) {
         }
 
         const blob = await response.blob();
-        console.log('[前端下载] Blob size=', blob.size, 'type=', blob.type);
 
         if (blob.size === 0) {
             throw new Error('下载文件为空');

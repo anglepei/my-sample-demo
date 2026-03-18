@@ -181,7 +181,6 @@ function uploadFile(url, formData, onProgress) {
  * 文件下载（使用Blob）
  */
 async function downloadFile(url, filename, params = {}) {
-    console.log('[API下载] 开始下载，url=', url, 'filename=', filename, 'params=', params);
     const token = getToken();
     const query = Object.keys(params)
         .filter(key => params[key] !== undefined && params[key] !== null)
@@ -190,10 +189,8 @@ async function downloadFile(url, filename, params = {}) {
 
     const queryString = query ? '?' + query : '';
     const downloadUrl = CONFIG.API_BASE + url + queryString;
-    console.log('[API下载] 完整URL=', downloadUrl);
 
     try {
-        console.log('[API下载] 发起fetch请求');
         const response = await fetch(downloadUrl, {
             headers: {
                 'Authorization': token ? `Bearer ${token}` : '',
@@ -202,7 +199,6 @@ async function downloadFile(url, filename, params = {}) {
             },
             cache: 'no-store'
         });
-        console.log('[API下载] 收到响应，status=', response.status, 'ok=', response.ok);
 
         if (response.status === 401) {
             removeToken();
@@ -219,11 +215,8 @@ async function downloadFile(url, filename, params = {}) {
             throw new Error('下载失败');
         }
 
-        console.log('[API下载] 开始转换为Blob');
         const blob = await response.blob();
-        console.log('[API下载] Blob生成完成，size=', blob.size, 'type=', blob.type);
         downloadBlob(blob, filename);
-        console.log('[API下载] downloadBlob调用完成');
     } catch (error) {
         console.error('[API下载] 下载过程出错:', error);
         throw error;
@@ -234,19 +227,15 @@ async function downloadFile(url, filename, params = {}) {
  * 下载Blob文件
  */
 function downloadBlob(blob, filename) {
-    console.log('[下载Blob] 开始，filename=', filename, 'blob.size=', blob.size);
     try {
         const url = URL.createObjectURL(blob);
-        console.log('[下载Blob] ObjectURL创建成功=', url);
         const link = document.createElement('a');
         link.href = url;
         link.download = filename;
         document.body.appendChild(link);
-        console.log('[下载Blob] 触发点击下载');
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-        console.log('[下载Blob] 下载完成');
     } catch (error) {
         console.error('[下载Blob] 失败:', error);
         throw error;

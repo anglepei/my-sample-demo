@@ -153,7 +153,6 @@ function getFieldTypeName(type) {
  */
 async function downloadExcelTemplate() {
     const loadingToast = showLoading('正在生成模板...');
-    console.log('[下载] 开始下载 Excel 模板');
 
     try {
         // 添加超时控制
@@ -161,7 +160,6 @@ async function downloadExcelTemplate() {
         const timeoutId = setTimeout(() => controller.abort(), 30000); // 30秒超时
 
         const token = localStorage.getItem('auth_token');
-        console.log('[下载] Token 存在:', !!token);
 
         const response = await fetch('/api/template/download/excel', {
             headers: {
@@ -171,7 +169,6 @@ async function downloadExcelTemplate() {
         });
 
         clearTimeout(timeoutId);
-        console.log('[下载] 响应状态:', response.status);
 
         if (response.status === 401) {
             console.error('[下载] 401 未授权');
@@ -186,9 +183,7 @@ async function downloadExcelTemplate() {
             throw new Error(`下载失败 (${response.status})`);
         }
 
-        console.log('[下载] 开始读取 blob...');
         const blob = await response.blob();
-        console.log('[下载] blob 大小:', blob.size, 'bytes');
 
         // 下载文件
         const url = URL.createObjectURL(blob);
@@ -200,7 +195,6 @@ async function downloadExcelTemplate() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
 
-        console.log('[下载] 完成');
         showSuccess('Excel模板下载成功');
     } catch (error) {
         console.error('[下载] 异常:', error);
@@ -221,14 +215,12 @@ async function downloadExcelTemplate() {
  */
 async function downloadCsvTemplate() {
     const loadingToast = showLoading('正在生成模板...');
-    console.log('[下载] 开始下载 CSV 模板');
 
     try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000);
 
         const token = localStorage.getItem('auth_token');
-        console.log('[下载] Token 存在:', !!token);
 
         const response = await fetch('/api/template/download/csv', {
             headers: {
@@ -238,7 +230,6 @@ async function downloadCsvTemplate() {
         });
 
         clearTimeout(timeoutId);
-        console.log('[下载] 响应状态:', response.status);
 
         if (response.status === 401) {
             console.error('[下载] 401 未授权');
@@ -253,9 +244,7 @@ async function downloadCsvTemplate() {
             throw new Error(`下载失败 (${response.status})`);
         }
 
-        console.log('[下载] 开始读取 blob...');
         const blob = await response.blob();
-        console.log('[下载] blob 大小:', blob.size, 'bytes');
 
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -266,7 +255,6 @@ async function downloadCsvTemplate() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
 
-        console.log('[下载] 完成');
         showSuccess('CSV模板下载成功');
     } catch (error) {
         console.error('[下载] 异常:', error);
