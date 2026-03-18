@@ -32,13 +32,13 @@ public class TemplateController {
      * 下载Excel模板
      */
     @Operation(summary = "下载Excel模板")
-    @GetMapping(value = "/excel", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "/download/excel", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> downloadExcelTemplate() {
         Long userId = UserContext.getUserId();
         byte[] excelBytes = templateService.generateExcelTemplate(userId);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment", "template.xlsx");
+        headers.setContentDispositionFormData("attachment", "data_template.xlsx");
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
         return ResponseEntity.ok()
@@ -50,13 +50,13 @@ public class TemplateController {
      * 下载CSV模板
      */
     @Operation(summary = "下载CSV模板")
-    @GetMapping(value = "/csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "/download/csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> downloadCsvTemplate() {
         Long userId = UserContext.getUserId();
         byte[] csvBytes = templateService.generateCsvTemplate(userId);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment", "template.csv");
+        headers.setContentDispositionFormData("attachment", "data_template.csv");
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
         return ResponseEntity.ok()

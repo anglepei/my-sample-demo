@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件管理系统</title>
+    <script>
+        // 检查是否已登录，已登录则跳转到主页
+        if (localStorage.getItem('auth_token')) {
+            window.location.href = '/app.html?page=dashboard';
+        } else {
+            window.location.href = '/login.html';
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

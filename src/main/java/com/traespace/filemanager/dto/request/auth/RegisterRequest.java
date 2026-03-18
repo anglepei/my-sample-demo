@@ -29,10 +29,10 @@ public class RegisterRequest {
 
     /**
      * 角色（USER或ADMIN）
+     * 注册时默认为USER，管理员可通过其他方式创建ADMIN用户
      */
-    @NotBlank(message = "角色不能为空")
     @Pattern(regexp = "^(USER|ADMIN)$", message = "角色必须是USER或ADMIN")
-    private String role;
+    private String role = "USER";
 
     public String getUsername() {
         return username;

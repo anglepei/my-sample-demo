@@ -29,7 +29,7 @@ public class StatisticsController {
      * 获取统计数据
      */
     @Operation(summary = "获取统计数据")
-    @GetMapping
+    @GetMapping("/summary")
     public Result<StatisticsResponse> getStatistics() {
         Long userId = UserContext.getUserId();
         StatisticsResponse response = statisticsService.getStatistics(userId);

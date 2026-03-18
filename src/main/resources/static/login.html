@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 文件管理系统</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: var(--spacing-lg);
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .login-logo-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-sm);
+        }
+        .login-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        .login-subtitle {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+        }
+        .login-form .form-item {
+            margin-bottom: var(--spacing-lg);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            height: 44px;
+            font-size: var(--font-size-lg);
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .login-footer a {
+            color: var(--primary-color);
+        }
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <div class="login-logo-icon">📁</div>
+                <h1 class="login-title">文件管理系统</h1>
+                <p class="login-subtitle">请登录您的账号</p>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="form-item">
+                    <label class="form-item-label required">用户名</label>
+                    <input type="text" class="input" name="username" placeholder="请输入用户名" required autocomplete="username">
+                </div>
+                <div class="form-item">
+                    <label class="form-item-label required">密码</label>
+                    <input type="password" class="input" name="password" placeholder="请输入密码" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary login-btn">登录</button>
+            </form>
+
+            <div class="login-footer">
+                还没有账号？ <a href="/register.html">立即注册</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/ui.js"></script>
+    <script>
+        // 检查是否已登录
+        if (isLoggedIn()) {
+            window.location.href = '/app.html?page=dashboard';
+        }
+
+        // 登录表单处理
+        $('#loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const username = formData.get('username').trim();
+            const password = formData.get('password');
+
+            if (!username || !password) {
+                showToast('请输入用户名和密码', 'warning');
+                return;
+            }
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = '登录中...';
+
+            try {
+                const result = await API.auth.login(username, password);
+                // 构造用户对象
+                const user = {
+                    id: result.userId,
+                    username: result.username,
+                    role: result.role
+                };
+                login(result.token, user);
+                showSuccess('登录成功');
+                setTimeout(() => {
+                    window.location.href = '/app.html?page=dashboard';
+                }, 500);
+            } catch (error) {
+                showError(error.message || '登录失败，请检查用户名和密码');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '登录';
+            }
+        });
+    </script>
+</body>
+</html>

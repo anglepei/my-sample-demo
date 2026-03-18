@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Tag(name = "操作日志接口", description = "操作日志查询")
 @RestController
-@RequestMapping("/api/operation-log")
+@RequestMapping("/api/log")
 public class OperationLogController {
 
     private final OperationLogService operationLogService;
@@ -32,7 +32,7 @@ public class OperationLogController {
      * 获取当前用户的操作日志
      */
     @Operation(summary = "获取当前用户的操作日志")
-    @GetMapping
+    @GetMapping("/list")
     public Result<IPage<OperationLogItemVO>> getOperationLogs(@Valid BasePageRequest request) {
         Long userId = UserContext.getUserId();
         IPage<OperationLogItemVO> page = operationLogService.getLogPage(userId, request);

@@ -1,5 +1,6 @@
 package com.traespace.filemanager.interceptor;
 
+import com.traespace.filemanager.config.UserContext;
 import com.traespace.filemanager.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,7 +35,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        // 将用户信息存入请求属性
+        // 将用户信息存入请求属性和UserContext
         Long userId = JwtUtil.getUserId(token);
         String username = JwtUtil.getUsername(token);
         String role = JwtUtil.getRole(token);
@@ -43,7 +44,18 @@ public class JwtInterceptor implements HandlerInterceptor {
         request.setAttribute("username", username);
         request.setAttribute("role", role);
 
+        // 设置UserContext
+        UserContext.setUserId(userId);
+        UserContext.setUsername(username);
+        UserContext.setRole(role);
+
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // 清理UserContext，防止内存泄漏
+        UserContext.clear();
     }
 
     /**

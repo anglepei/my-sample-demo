@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 文件管理系统</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .register-container {
+            width: 100%;
+            max-width: 400px;
+            padding: var(--spacing-lg);
+        }
+        .register-box {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .register-logo {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .register-logo-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-sm);
+        }
+        .register-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        .register-subtitle {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+        }
+        .register-form .form-item {
+            margin-bottom: var(--spacing-lg);
+        }
+        .password-hint {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            height: 44px;
+            font-size: var(--font-size-lg);
+        }
+        .register-footer {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .register-footer a {
+            color: var(--primary-color);
+        }
+        .register-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-box">
+            <div class="register-logo">
+                <div class="register-logo-icon">📁</div>
+                <h1 class="register-title">创建账号</h1>
+                <p class="register-subtitle">注册您的账号</p>
+            </div>
+
+            <form class="register-form" id="registerForm">
+                <div class="form-item">
+                    <label class="form-item-label required">用户名</label>
+                    <input type="text" class="input" name="username" placeholder="请输入用户名" required autocomplete="username" minlength="3" maxlength="20">
+                    <div class="form-item-description">3-20个字符</div>
+                </div>
+                <div class="form-item">
+                    <label class="form-item-label required">密码</label>
+                    <input type="password" class="input" name="password" placeholder="请输入密码" required autocomplete="new-password" minlength="6">
+                    <div class="password-hint">至少6个字符</div>
+                </div>
+                <div class="form-item">
+                    <label class="form-item-label required">确认密码</label>
+                    <input type="password" class="input" name="confirmPassword" placeholder="请再次输入密码" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-primary register-btn">注册</button>
+            </form>
+
+            <div class="register-footer">
+                已有账号？ <a href="/login.html">立即登录</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/ui.js"></script>
+    <script>
+        // 检查是否已登录
+        if (isLoggedIn()) {
+            window.location.href = '/app.html?page=dashboard';
+        }
+
+        // 注册表单处理
+        $('#registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const username = formData.get('username').trim();
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+
+            // 校验用户名
+            if (username.length < 3 || username.length > 20) {
+                showToast('用户名长度应为3-20个字符', 'warning');
+                return;
+            }
+
+            // 校验密码
+            if (password.length < 6) {
+                showToast('密码至少6个字符', 'warning');
+                return;
+            }
+
+            // 校验确认密码
+            if (password !== confirmPassword) {
+                showToast('两次输入的密码不一致', 'warning');
+                return;
+            }
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = '注册中...';
+
+            try {
+                await API.auth.register(username, password);
+                showSuccess('注册成功，请登录');
+                setTimeout(() => {
+                    window.location.href = '/login.html';
+                }, 1000);
+            } catch (error) {
+                showError(error.message || '注册失败');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '注册';
+            }
+        });
+    </script>
+</body>
+</html>

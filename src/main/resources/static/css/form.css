@@ -1,0 +1,240 @@
+/* 表单容器 */
+.form {
+    max-width: 600px;
+}
+
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: flex-end;
+}
+
+.form-inline .form-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* 表单项 */
+.form-item {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-item-label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.form-item-label.required::after {
+    content: '*';
+    color: var(--danger-color);
+    margin-left: 4px;
+}
+
+.form-item-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
+/* 输入框 */
+.input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    transition: all 0.3s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(24,144,255,0.1);
+}
+
+.input:disabled {
+    background: var(--bg-disabled);
+    color: var(--text-disabled);
+    cursor: not-allowed;
+}
+
+.input::placeholder {
+    color: var(--text-disabled);
+}
+
+/* 输入框尺寸 */
+.input-sm {
+    padding: 4px 8px;
+    font-size: var(--font-size-sm);
+}
+
+.input-lg {
+    padding: 12px 16px;
+    font-size: var(--font-size-lg);
+}
+
+/* 下拉框 */
+.select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 多行文本框 */
+.textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(24,144,255,0.1);
+}
+
+/* 复选框 */
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+}
+
+/* 单选框 */
+.radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+}
+
+.radio input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.radio-label {
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+}
+
+/* 复选框/单选框组 */
+.checkbox-group,
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+/* 文件上传 */
+.file-upload {
+    display: inline-block;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 8px 16px;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius-md);
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-upload-label:hover {
+    border-color: var(--primary-color);
+}
+
+.file-upload-label.dragover {
+    border-color: var(--primary-color);
+    background: #e6f7ff;
+}
+
+/* 表单验证状态 */
+.form-item.has-error .input,
+.form-item.has-error .select,
+.form-item.has-error .textarea {
+    border-color: var(--danger-color);
+}
+
+.form-item.has-success .input,
+.form-item.has-success .select,
+.form-item.has-success .textarea {
+    border-color: var(--success-color);
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+}
+
+.success-message {
+    color: var(--success-color);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+}
+
+/* 搜索表单 */
+.search-form {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-end;
+    padding: var(--spacing-lg);
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-form .form-item {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.search-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}

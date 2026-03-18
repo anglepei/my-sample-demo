@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - 无权限</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+        }
+        .error-container {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+        .error-code {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--danger-color);
+            margin-bottom: var(--spacing-md);
+        }
+        .error-title {
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .error-message {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+        .error-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">403</div>
+        <h1 class="error-title">无权限访问</h1>
+        <p class="error-message">抱歉，您没有权限访问此页面</p>
+        <div class="error-actions">
+            <button class="btn btn-primary" onclick="history.back()">返回上一页</button>
+            <button class="btn btn-secondary" onclick="window.location.href='/app.html?page=dashboard'">返回首页</button>
+        </div>
+    </div>
+</body>
+</html>
