@@ -43,6 +43,7 @@ spring:
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: com.traespace.filemanager.entity
+  type-handlers-package: com.traespace.filemanager.handler
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

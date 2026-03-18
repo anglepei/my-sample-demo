@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -90,9 +91,13 @@ public class ExcelUtil {
             for (int i = 0; i < data.size(); i++) {
                 Row row = sheet.createRow(i + 1);
                 Map<String, String> rowData = data.get(i);
-                int col = 0;
-                for (String value : rowData.values()) {
-                    Cell cell = row.createCell(col++);
+
+                // 按表头顺序写入数据，确保列对齐
+                for (int j = 0; j < headers.size(); j++) {
+                    String headerName = headers.get(j);
+                    String value = rowData.getOrDefault(headerName, "");
+
+                    Cell cell = row.createCell(j);
                     cell.setCellStyle(textStyle);
                     // 确保值作为字符串存储
                     cell.setCellValue(value != null ? value : "");
@@ -123,7 +128,9 @@ public class ExcelUtil {
                 if (DateUtil.isCellDateFormatted(cell)) {
                     return cell.getDateCellValue().toString();
                 }
-                return String.valueOf(cell.getNumericCellValue());
+                // 使用 DecimalFormat 避免大数字被转换为科学计数法
+                DecimalFormat df = new DecimalFormat("#");
+                return df.format(cell.getNumericCellValue());
             case BOOLEAN:
                 return String.valueOf(cell.getBooleanCellValue());
             case FORMULA:

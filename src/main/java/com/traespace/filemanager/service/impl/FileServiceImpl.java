@@ -21,6 +21,7 @@ import com.traespace.filemanager.service.file.FileService.FileDownloadResult;
 import com.traespace.filemanager.util.CsvUtil;
 import com.traespace.filemanager.util.ExcelUtil;
 import com.traespace.filemanager.util.ValidationUtil;
+import com.traespace.filemanager.handler.JsonTypeHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +32,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 文件服务实现
@@ -108,6 +112,24 @@ public class FileServiceImpl implements FileService {
         fileRecord.setUploadTime(LocalDateTime.now());
         fileRecord.setStatus(1);
         fileRecord.setRowCount(data.size()); // data只包含数据行，不包含表头
+
+        // 保存字段配置快照（从第一行数据中提取所有字段名，使用数组格式保持顺序）
+        if (!data.isEmpty()) {
+            Map<String, String> firstRow = data.get(0);
+            List<String> fieldNames = new ArrayList<>();
+            for (String fieldName : firstRow.keySet()) {
+                // 排除固定字段，按顺序添加自定义字段名
+                if (!fieldName.equals("序号") && !fieldName.equals("身份证号") && !fieldName.equals("手机号")) {
+                    fieldNames.add(fieldName);
+                }
+            }
+            if (!fieldNames.isEmpty()) {
+                String snapshotJson = JsonTypeHandler.toJsonArray(fieldNames);
+                fileRecord.setFieldConfigSnapshot(snapshotJson);
+                log.info("[文件上传] 字段配置快照: {}", snapshotJson);
+            }
+        }
+
         fileRecordMapper.insert(fileRecord);
         log.info("[文件上传] 文件记录已保存，fileId={}, rowCount={}", fileRecord.getId(), fileRecord.getRowCount());
 
@@ -245,7 +267,8 @@ public class FileServiceImpl implements FileService {
         List<Map<String, String>> data = convertToMapList(details);
         log.info("[文件下载] 转换后的数据条数={}", data.size());
 
-        List<String> headers = buildHeaders(details);
+        // 使用字段配置快照或从数据中提取表头
+        List<String> headers = buildHeadersWithSnapshot(fileRecord, details);
         log.info("[文件下载] 表头数量={}", headers.size());
 
         byte[] fileBytes;
@@ -422,13 +445,18 @@ public class FileServiceImpl implements FileService {
      */
     private List<Map<String, String>> convertToMapList(List<DataDetail> details) {
         List<Map<String, String>> result = new ArrayList<>();
-        for (DataDetail detail : details) {
+        for (int i = 0; i < details.size(); i++) {
+            DataDetail detail = details.get(i);
             Map<String, String> row = new HashMap<>();
             row.put("序号", detail.getSeqNo());
             row.put("身份证号", detail.getIdCard());
             row.put("手机号", detail.getPhone());
             if (detail.getCustomFields() != null) {
                 row.putAll(detail.getCustomFields());
+                log.info("[数据转换] 第{}行: seqNo={}, 姓名={}, customFields={}",
+                    i + 1, detail.getSeqNo(), detail.getCustomFields().get("姓名"), detail.getCustomFields());
+            } else {
+                log.info("[数据转换] 第{}行: seqNo={}, customFields=null", i + 1, detail.getSeqNo());
             }
             result.add(row);
         }
@@ -437,29 +465,67 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 构建表头（固定字段 + 自定义字段）
+     * 优先使用字段配置快照，如果没有则从数据明细中提取
      */
-    private List<String> buildHeaders(List<DataDetail> details) {
+    private List<String> buildHeadersWithSnapshot(FileRecord fileRecord, List<DataDetail> details) {
         List<String> headers = new ArrayList<>();
         // 固定字段
         headers.add("序号");
         headers.add("身份证号");
         headers.add("手机号");
 
-        // 从数据明细中提取自定义字段名
-        if (details != null && !details.isEmpty()) {
-            for (DataDetail detail : details) {
-                Map<String, String> customFields = detail.getCustomFields();
-                if (customFields != null) {
-                    for (String fieldName : customFields.keySet()) {
-                        if (!headers.contains(fieldName)) {
-                            headers.add(fieldName);
+        // 尝试从字段配置快照中获取自定义字段名
+        List<String> customFieldNames = new ArrayList<>();
+
+        // 1. 首先尝试从字段配置快照解析字段名（新格式：JSON数组 ["邮箱", "姓名"]）
+        String snapshot = fileRecord.getFieldConfigSnapshot();
+        if (snapshot != null && !snapshot.trim().isEmpty() && !"[]".equals(snapshot.trim()) && !"{}".equals(snapshot.trim())) {
+            try {
+                // 检查是数组格式还是对象格式
+                if (snapshot.trim().startsWith("[")) {
+                    // 新格式：JSON数组
+                    customFieldNames = JsonTypeHandler.parseJsonArray(snapshot);
+                    log.info("[文件下载] 从字段配置快照（数组格式）中提取到{}个自定义字段: {}", customFieldNames.size(), customFieldNames);
+                } else {
+                    // 旧格式：JSON对象（兼容）
+                    Map<String, String> fieldConfig = JsonTypeHandler.parseJson(snapshot);
+                    for (String fieldName : fieldConfig.keySet()) {
+                        if (!fieldName.equals("序号") && !fieldName.equals("身份证号") && !fieldName.equals("手机号")) {
+                            customFieldNames.add(fieldName);
                         }
                     }
+                    log.info("[文件下载] 从字段配置快照（对象格式）中提取到{}个自定义字段: {}", customFieldNames.size(), customFieldNames);
                 }
+            } catch (Exception e) {
+                log.warn("[文件下载] 解析字段配置快照失败: {}", snapshot, e);
             }
         }
 
-        log.info("[文件下载] 表头: {}", headers);
+        // 2. 如果快照中没有，从数据明细中提取字段名
+        if (customFieldNames.isEmpty()) {
+            Set<String> fieldSet = new LinkedHashSet<>();
+            if (details != null && !details.isEmpty()) {
+                for (DataDetail detail : details) {
+                    Map<String, String> customFields = detail.getCustomFields();
+                    if (customFields != null) {
+                        fieldSet.addAll(customFields.keySet());
+                    }
+                }
+                customFieldNames.addAll(fieldSet);
+                log.info("[文件下载] 从数据明细中提取到{}个自定义字段: {}", customFieldNames.size(), customFieldNames);
+            }
+        }
+
+        headers.addAll(customFieldNames);
+        log.info("[文件下载] 最终表头: {}", headers);
         return headers;
+    }
+
+    /**
+     * 构建表头（固定字段 + 自定义字段）
+     * 仅从数据明细中提取字段名
+     */
+    private List<String> buildHeaders(List<DataDetail> details) {
+        return buildHeadersWithSnapshot(null, details);
     }
 }

@@ -3,6 +3,7 @@ package com.traespace.filemanager.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
@@ -10,8 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * JSON类型处理器
@@ -22,7 +22,8 @@ import java.util.Map;
  */
 public class JsonTypeHandler extends BaseTypeHandler<Map<String, String>> {
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
+            .disable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i,
@@ -50,14 +51,15 @@ public class JsonTypeHandler extends BaseTypeHandler<Map<String, String>> {
     }
 
     /**
-     * 解析JSON字符串为Map
+     * 解析JSON字符串为Map（使用LinkedHashMap保持顺序）
      */
     public static Map<String, String> parseJson(String json) {
         if (json == null || json.trim().isEmpty()) {
-            return new HashMap<>();
+            return new LinkedHashMap<>();
         }
         try {
-            return OBJECT_MAPPER.readValue(json, new TypeReference<Map<String, String>>() {});
+            return OBJECT_MAPPER.readValue(json,
+                new TypeReference<LinkedHashMap<String, String>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON解析失败: " + json, e);
         }
@@ -74,6 +76,34 @@ public class JsonTypeHandler extends BaseTypeHandler<Map<String, String>> {
             return OBJECT_MAPPER.writeValueAsString(map);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON序列化失败: " + map, e);
+        }
+    }
+
+    /**
+     * 将List转换为JSON数组字符串（用于字段配置快照，保持顺序）
+     */
+    public static String toJsonArray(List<String> list) {
+        if (list == null || list.isEmpty()) {
+            return "[]";
+        }
+        try {
+            return OBJECT_MAPPER.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("JSON数组序列化失败: " + list, e);
+        }
+    }
+
+    /**
+     * 解析JSON数组字符串为List（用于字段配置快照，保持顺序）
+     */
+    public static List<String> parseJsonArray(String json) {
+        if (json == null || json.trim().isEmpty() || "[]".equals(json.trim())) {
+            return new ArrayList<>();
+        }
+        try {
+            return OBJECT_MAPPER.readValue(json, new TypeReference<List<String>>() {});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("JSON数组解析失败: " + json, e);
         }
     }
 }

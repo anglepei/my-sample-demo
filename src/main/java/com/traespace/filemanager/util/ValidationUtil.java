@@ -11,42 +11,28 @@ import org.apache.commons.lang3.StringUtils;
 public class ValidationUtil {
 
     /**
-     * 身份证号校验（18位 + 校验码）
+     * 身份证号校验（仅校验位数：18位）
      *
      * @param idCard 身份证号
      * @return 是否有效
      */
     public static boolean isValidIdCard(String idCard) {
-        if (StringUtils.isEmpty(idCard) || idCard.length() != 18) {
+        // 仅校验是否为18位数字或结尾是X
+        if (StringUtils.isEmpty(idCard)) {
             return false;
         }
-
-        // 校验格式
-        if (!idCard.matches("^[1-9]\\d{5}(18|19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]$")) {
-            return false;
-        }
-
-        // 校验码验证（大小写不敏感）
-        char[] chars = idCard.toCharArray();
-        int[] weights = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
-        char[] checkCodes = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
-        int sum = 0;
-        for (int i = 0; i < 17; i++) {
-            sum += (chars[i] - '0') * weights[i];
-        }
-        char expectedCheck = checkCodes[sum % 11];
-        char actualCheck = Character.toUpperCase(chars[17]);
-        return actualCheck == expectedCheck;
+        return idCard.matches("^\\d{17}[\\dXx]$");
     }
 
     /**
-     * 手机号校验（11位 + 1开头 + 第二位3-9）
+     * 手机号校验（仅校验位数：11位）
      *
      * @param phone 手机号
      * @return 是否有效
      */
     public static boolean isValidPhone(String phone) {
-        return phone != null && phone.matches("^1[3-9]\\d{9}$");
+        // 仅校验是否为11位数字
+        return phone != null && phone.matches("^\\d{11}$");
     }
 
     /**
