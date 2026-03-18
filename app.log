@@ -7,417 +7,184 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2026-03-18 15:11:45 [main] INFO  c.t.f.FileManagerApplication - Starting FileManagerApplication v1.0.0 using Java 17.0.18 with PID 67277 (/Users/angle/Desktop/traespace/my-sample-demo/target/file-manager-1.0.0.jar started by angle in /Users/angle/Desktop/traespace/my-sample-demo)
-2026-03-18 15:11:45 [main] INFO  c.t.f.FileManagerApplication - No active profile set, falling back to 1 default profile: "default"
-2026-03-18 15:11:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-03-18 15:11:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-03-18 15:11:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
-2026-03-18 15:11:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-03-18 15:11:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-03-18 15:11:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2026-03-18 15:11:46 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2026-03-18 15:11:46 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 605 ms
+2026-03-18 15:17:58 [main] INFO  c.t.f.FileManagerApplication - Starting FileManagerApplication v1.0.0 using Java 17.0.18 with PID 67764 (/Users/angle/Desktop/traespace/my-sample-demo/target/file-manager-1.0.0.jar started by angle in /Users/angle/Desktop/traespace/my-sample-demo)
+2026-03-18 15:17:58 [main] INFO  c.t.f.FileManagerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-18 15:17:59 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-18 15:17:59 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-03-18 15:17:59 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 3 ms. Found 0 Redis repository interfaces.
+2026-03-18 15:17:59 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-18 15:17:59 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-18 15:17:59 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-03-18 15:17:59 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-18 15:17:59 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 627 ms
  _ _   |_  _ _|_. ___ _ |    _ 
 | | |\/|_)(_| | |_\  |_)||_|_\ 
      /               |         
                         3.5.5 
-2026-03-18 15:11:46 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2026-03-18 15:11:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2026-03-18 15:11:46 [main] INFO  c.t.f.FileManagerApplication - Started FileManagerApplication in 1.319 seconds (process running for 1.49)
-2026-03-18 15:12:07 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-18 15:12:07 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-03-18 15:12:07 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-03-18 15:12:30 [http-nio-8080-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-03-18 15:12:30 [http-nio-8080-exec-5] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65b1f53a
-2026-03-18 15:12:30 [http-nio-8080-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-03-18 15:12:30 [http-nio-8080-exec-5] DEBUG c.t.f.m.UserMapper.selectByUsername - ==>  Preparing: SELECT * FROM t_user WHERE username = ?
-2026-03-18 15:12:30 [http-nio-8080-exec-5] DEBUG c.t.f.m.UserMapper.selectByUsername - ==> Parameters: user1(String)
-2026-03-18 15:12:30 [http-nio-8080-exec-5] DEBUG c.t.f.m.UserMapper.selectByUsername - <==      Total: 1
-2026-03-18 15:12:31 [http-nio-8080-exec-1] DEBUG c.t.f.m.O.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_operation_log WHERE (user_id = ?)
-2026-03-18 15:12:31 [http-nio-8080-exec-1] DEBUG c.t.f.m.O.selectList_mpCount - ==> Parameters: 24(Long)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_file_record WHERE (user_id = ? AND status = ?)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==> Parameters: 24(Long), 1(Integer)
-2026-03-18 15:12:31 [http-nio-8080-exec-1] DEBUG c.t.f.m.O.selectList_mpCount - <==      Total: 1
-2026-03-18 15:12:31 [http-nio-8080-exec-1] DEBUG c.t.f.m.O.selectList - ==>  Preparing: SELECT id,user_id,username,operation_type,target_id,description,request_ip,cost_time,create_time FROM t_operation_log WHERE (user_id = ?) ORDER BY create_time DESC LIMIT ?
-2026-03-18 15:12:31 [http-nio-8080-exec-1] DEBUG c.t.f.m.O.selectList - ==> Parameters: 24(Long), 5(Long)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ? AND status = ?)
-2026-03-18 15:12:31 [http-nio-8080-exec-1] DEBUG c.t.f.m.O.selectList - <==      Total: 5
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 1(Integer)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 20
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?))
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 4(Long), 14(Long), 24(Long), 34(Long), 44(Long), 54(Long), 64(Long), 74(Long), 84(Long), 94(Long), 104(Long), 114(Long), 124(Long), 134(Long), 144(Long), 154(Long), 164(Long), 174(Long), 184(Long), 194(Long)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_file_record WHERE (user_id = ? AND status = ? AND upload_time >= ? AND upload_time <= ?)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==> Parameters: 24(Long), 1(Integer), 2026-03-18T00:00(LocalDateTime), 2026-03-18T23:59:59.999999999(LocalDateTime)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ? AND status = ? AND upload_time >= ? AND upload_time <= ?)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 1(Integer), 2026-03-18T00:00(LocalDateTime), 2026-03-18T23:59:59.999999999(LocalDateTime)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 20
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?))
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 4(Long), 14(Long), 24(Long), 34(Long), 44(Long), 54(Long), 64(Long), 74(Long), 84(Long), 94(Long), 104(Long), 114(Long), 124(Long), 134(Long), 144(Long), 154(Long), 164(Long), 174(Long), 184(Long), 194(Long)
-2026-03-18 15:12:31 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 开始上传，userId=24, filename=data_template 2行数据.csv
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 文件类型=CSV
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 表头行: ["序号","身份证号","手机号","邮箱","姓名"]
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 解析后表头数量: 5
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第1行原始数据: [1,440103198503221239,13800138001,test1@qq.com,]
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第1行解析后字段数: 5
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第1行数据: {序号=1, 身份证号=440103198503221239, 手机号=13800138001, 邮箱=test1@qq.com, 姓名=}
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第2行原始数据: [2,310101199105163478,13800138002,test2@qq.com,]
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第2行解析后字段数: 5
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第2行数据: {序号=2, 身份证号=310101199105163478, 手机号=13800138002, 邮箱=test2@qq.com, 姓名=}
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 总共解析出2条数据行
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 解析完成，数据总行数=2（包含表头）
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 数据校验通过
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_file_record WHERE (user_id = ? AND upload_time BETWEEN ? AND ?)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==> Parameters: 24(Long), 2026-03-18T00:00(LocalDateTime), 2026-03-18T23:59:59.999999999(LocalDateTime)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 生成系统文件名=user1_20260318_21.csv
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 字段配置快照: ["邮箱","姓名"]
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.FileRecordMapper.insert - ==>  Preparing: INSERT INTO t_file_record ( file_name, original_name, user_id, file_type, status, row_count, field_config_snapshot, upload_time, create_time, update_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.FileRecordMapper.insert - ==> Parameters: user1_20260318_21.csv(String), data_template 2行数据.csv(String), 24(Long), CSV(String), 1(Integer), 2(Integer), ["邮箱","姓名"](String), 2026-03-18T15:12:47.780466(LocalDateTime), 2026-03-18T15:12:47.782106(LocalDateTime), 2026-03-18T15:12:47.782682(LocalDateTime)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.FileRecordMapper.insert - <==    Updates: 1
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 文件记录已保存，fileId=204, rowCount=2
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 开始保存数据明细，fileId=204, 数据总行数=2
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 处理第1行数据: {序号=1, 身份证号=440103198503221239, 手机号=13800138001, 邮箱=test1@qq.com, 姓名=}
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==>  Preparing: INSERT INTO t_data_detail ( file_id, seq_no, id_card, phone, custom_fields, row_num, create_time ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==> Parameters: 204(Long), 1(String), 440103198503221239(String), 13800138001(String), {"邮箱":"test1@qq.com","姓名":""}(String), 1(Integer), 2026-03-18T15:12:47.805196(LocalDateTime)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.DataDetailMapper.insert - <==    Updates: 1
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 第1行已插入，detailId=414
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 处理第2行数据: {序号=2, 身份证号=310101199105163478, 手机号=13800138002, 邮箱=test2@qq.com, 姓名=}
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==>  Preparing: INSERT INTO t_data_detail ( file_id, seq_no, id_card, phone, custom_fields, row_num, create_time ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==> Parameters: 204(Long), 2(String), 310101199105163478(String), 13800138002(String), {"邮箱":"test2@qq.com","姓名":""}(String), 2(Integer), 2026-03-18T15:12:47.824512(LocalDateTime)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.DataDetailMapper.insert - <==    Updates: 1
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 第2行已插入，detailId=424
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 完成，共插入2条记录到t_data_detail
-2026-03-18 15:12:47 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 上传完成，fileId=204
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.m.OperationLogMapper.insert - ==>  Preparing: INSERT INTO t_operation_log ( user_id, username, operation_type, description, request_ip, create_time ) VALUES ( ?, ?, ?, ?, ?, ? )
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.m.OperationLogMapper.insert - ==> Parameters: 24(Long), user1(String), UPLOAD(String), 上传文件(String), 127.0.0.1(String), 2026-03-18T15:12:47.866968(LocalDateTime)
-2026-03-18 15:12:47 [http-nio-8080-exec-8] DEBUG c.t.f.m.OperationLogMapper.insert - <==    Updates: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.F.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_file_record WHERE (user_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.F.selectList_mpCount - ==> Parameters: 24(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.F.selectList_mpCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ?) ORDER BY upload_time DESC LIMIT ?
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 10(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 10
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 204(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=204, fileName=user1_20260318_21.csv, 数据条数=2
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 194(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=194, fileName=user1_20260318_20.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 184(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=184, fileName=user1_20260318_19.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 174(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=174, fileName=user1_20260318_18.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 164(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=164, fileName=user1_20260318_17.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 154(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=154, fileName=user1_20260318_16.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 144(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=144, fileName=user1_20260318_15.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 134(Long)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:48 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=134, fileName=user1_20260318_14.xlsx, 数据条数=3
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:48 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 124(Long)
-2026-03-18 15:12:49 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:49 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=124, fileName=user1_20260318_13.xlsx, 数据条数=3
-2026-03-18 15:12:49 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:12:49 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 114(Long)
-2026-03-18 15:12:49 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:12:49 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=114, fileName=user1_20260318_12.xlsx, 数据条数=3
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.controller.file.FileController - ========== [文件下载] 收到下载请求，fileId=204 ==========
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.controller.file.FileController - [文件下载] userId=24
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] ========== 开始下载流程 ==========
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] userId=24, fileId=204
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 204(Long)
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 查询文件记录完成，fileRecord=存在
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 文件信息：originalName=data_template 2行数据.csv, fileType=CSV, rowCount=2
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 204(Long)
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 查询到2条数据明细
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [数据转换] 第1行: seqNo=1, 姓名=, customFields={姓名=, 邮箱=test1@qq.com}
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [数据转换] 第2行: seqNo=2, 姓名=, customFields={姓名=, 邮箱=test2@qq.com}
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 转换后的数据条数=2
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 从字段配置快照（数组格式）中提取到2个自定义字段: [邮箱, 姓名]
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 最终表头: [序号, 身份证号, 手机号, 邮箱, 姓名]
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 表头数量=5
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 开始生成CSV文件
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] CSV文件生成完成，大小=168 bytes
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] ========== 下载流程完成，文件名=data_template 2行数据.csv, 文件大小=168 bytes ==========
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.controller.file.FileController - [文件下载] 文件生成完成，filename=data_template 2行数据.csv, size=168 bytes
-2026-03-18 15:12:51 [http-nio-8080-exec-3] INFO  c.t.f.controller.file.FileController - [文件下载] 返回文件，Content-Disposition: attachment; filename="data_template%202%E8%A1%8C%E6%95%B0%E6%8D%AE.csv", bytes=168
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.OperationLogMapper.insert - ==>  Preparing: INSERT INTO t_operation_log ( user_id, username, operation_type, description, request_ip, create_time ) VALUES ( ?, ?, ?, ?, ?, ? )
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.OperationLogMapper.insert - ==> Parameters: 24(Long), user1(String), DOWNLOAD(String), 下载文件(String), 127.0.0.1(String), 2026-03-18T15:12:51.531734(LocalDateTime)
-2026-03-18 15:12:51 [http-nio-8080-exec-3] DEBUG c.t.f.m.OperationLogMapper.insert - <==    Updates: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 开始上传，userId=24, filename=data_template 2行数据.csv
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 文件类型=CSV
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 表头行: ["序号","身份证号","手机号","邮箱","姓名"]
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 解析后表头数量: 5
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第1行原始数据: [1,440103198503221239,13800138001,,test1]
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第1行解析后字段数: 5
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第1行数据: {序号=1, 身份证号=440103198503221239, 手机号=13800138001, 邮箱=, 姓名=test1}
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第2行原始数据: [2,310101199105163478,13800138002,,test2]
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第2行解析后字段数: 5
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 第2行数据: {序号=2, 身份证号=310101199105163478, 手机号=13800138002, 邮箱=, 姓名=test2}
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.traespace.filemanager.util.CsvUtil - [CSV解析] 总共解析出2条数据行
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 解析完成，数据总行数=2（包含表头）
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 数据校验通过
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_file_record WHERE (user_id = ? AND upload_time BETWEEN ? AND ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.m.FileRecordMapper.selectCount - ==> Parameters: 24(Long), 2026-03-18T00:00(LocalDateTime), 2026-03-18T23:59:59.999999999(LocalDateTime)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.m.FileRecordMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 生成系统文件名=user1_20260318_22.csv
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 字段配置快照: ["邮箱","姓名"]
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.FileRecordMapper.insert - ==>  Preparing: INSERT INTO t_file_record ( file_name, original_name, user_id, file_type, status, row_count, field_config_snapshot, upload_time, create_time, update_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.FileRecordMapper.insert - ==> Parameters: user1_20260318_22.csv(String), data_template 2行数据.csv(String), 24(Long), CSV(String), 1(Integer), 2(Integer), ["邮箱","姓名"](String), 2026-03-18T15:13:41.033604(LocalDateTime), 2026-03-18T15:13:41.034062(LocalDateTime), 2026-03-18T15:13:41.034099(LocalDateTime)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.FileRecordMapper.insert - <==    Updates: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 文件记录已保存，fileId=214, rowCount=2
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 开始保存数据明细，fileId=214, 数据总行数=2
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 处理第1行数据: {序号=1, 身份证号=440103198503221239, 手机号=13800138001, 邮箱=, 姓名=test1}
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==>  Preparing: INSERT INTO t_data_detail ( file_id, seq_no, id_card, phone, custom_fields, row_num, create_time ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==> Parameters: 214(Long), 1(String), 440103198503221239(String), 13800138001(String), {"邮箱":"","姓名":"test1"}(String), 1(Integer), 2026-03-18T15:13:41.051326(LocalDateTime)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.DataDetailMapper.insert - <==    Updates: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 第1行已插入，detailId=434
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 处理第2行数据: {序号=2, 身份证号=310101199105163478, 手机号=13800138002, 邮箱=, 姓名=test2}
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==>  Preparing: INSERT INTO t_data_detail ( file_id, seq_no, id_card, phone, custom_fields, row_num, create_time ) VALUES ( ?, ?, ?, ?, ?, ?, ? )
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.DataDetailMapper.insert - ==> Parameters: 214(Long), 2(String), 310101199105163478(String), 13800138002(String), {"邮箱":"","姓名":"test2"}(String), 2(Integer), 2026-03-18T15:13:41.066477(LocalDateTime)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.DataDetailMapper.insert - <==    Updates: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 第2行已插入，detailId=444
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [数据保存] 完成，共插入2条记录到t_data_detail
-2026-03-18 15:13:41 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件上传] 上传完成，fileId=214
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.m.OperationLogMapper.insert - ==>  Preparing: INSERT INTO t_operation_log ( user_id, username, operation_type, description, request_ip, create_time ) VALUES ( ?, ?, ?, ?, ?, ? )
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.m.OperationLogMapper.insert - ==> Parameters: 24(Long), user1(String), UPLOAD(String), 上传文件(String), 127.0.0.1(String), 2026-03-18T15:13:41.100541(LocalDateTime)
-2026-03-18 15:13:41 [http-nio-8080-exec-7] DEBUG c.t.f.m.OperationLogMapper.insert - <==    Updates: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.F.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_file_record WHERE (user_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.F.selectList_mpCount - ==> Parameters: 24(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.F.selectList_mpCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ?) ORDER BY upload_time DESC LIMIT ?
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 10(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 10
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 214(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=214, fileName=user1_20260318_22.csv, 数据条数=2
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 204(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=204, fileName=user1_20260318_21.csv, 数据条数=2
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 194(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=194, fileName=user1_20260318_20.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 184(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=184, fileName=user1_20260318_19.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 174(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=174, fileName=user1_20260318_18.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 164(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=164, fileName=user1_20260318_17.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 154(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=154, fileName=user1_20260318_16.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 144(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=144, fileName=user1_20260318_15.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 134(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=134, fileName=user1_20260318_14.xlsx, 数据条数=3
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 124(Long)
-2026-03-18 15:13:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=124, fileName=user1_20260318_13.xlsx, 数据条数=3
-2026-03-18 15:13:43 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=214
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
-2026-03-18 15:13:43 [http-nio-8080-exec-6] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
-2026-03-18 15:13:43 [http-nio-8080-exec-6] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
-2026-03-18 15:13:43 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=214
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
-2026-03-18 15:13:43 [http-nio-8080-exec-3] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
-2026-03-18 15:13:43 [http-nio-8080-exec-3] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.F.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_file_record WHERE (user_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.F.selectList_mpCount - ==> Parameters: 24(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.F.selectList_mpCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ?) ORDER BY upload_time DESC LIMIT ?
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 10(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 10
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 214(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=214, fileName=user1_20260318_22.csv, 数据条数=2
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 204(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=204, fileName=user1_20260318_21.csv, 数据条数=2
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 194(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=194, fileName=user1_20260318_20.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 184(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=184, fileName=user1_20260318_19.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 174(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=174, fileName=user1_20260318_18.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 164(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=164, fileName=user1_20260318_17.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 154(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=154, fileName=user1_20260318_16.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 144(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=144, fileName=user1_20260318_15.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 134(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=134, fileName=user1_20260318_14.xlsx, 数据条数=3
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 124(Long)
-2026-03-18 15:13:44 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:44 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=124, fileName=user1_20260318_13.xlsx, 数据条数=3
-2026-03-18 15:13:46 [http-nio-8080-exec-4] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=214
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
-2026-03-18 15:13:46 [http-nio-8080-exec-4] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
-2026-03-18 15:13:46 [http-nio-8080-exec-4] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
-2026-03-18 15:13:46 [http-nio-8080-exec-5] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=214
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
-2026-03-18 15:13:46 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
-2026-03-18 15:13:46 [http-nio-8080-exec-5] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.F.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_file_record WHERE (user_id = ?)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.F.selectList_mpCount - ==> Parameters: 24(Long)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.F.selectList_mpCount - <==      Total: 1
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ?) ORDER BY upload_time DESC LIMIT ?
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 10(Long)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 10
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 214(Long)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:50 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=214, fileName=user1_20260318_22.csv, 数据条数=2
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 204(Long)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:50 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=204, fileName=user1_20260318_21.csv, 数据条数=2
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:50 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 194(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=194, fileName=user1_20260318_20.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 184(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=184, fileName=user1_20260318_19.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 174(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=174, fileName=user1_20260318_18.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 164(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=164, fileName=user1_20260318_17.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 154(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=154, fileName=user1_20260318_16.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 144(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=144, fileName=user1_20260318_15.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 134(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=134, fileName=user1_20260318_14.xlsx, 数据条数=3
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 124(Long)
-2026-03-18 15:13:51 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
-2026-03-18 15:13:51 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=124, fileName=user1_20260318_13.xlsx, 数据条数=3
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.controller.file.FileController - ========== [文件下载] 收到下载请求，fileId=214 ==========
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.controller.file.FileController - [文件下载] userId=24
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] ========== 开始下载流程 ==========
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] userId=24, fileId=214
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 查询文件记录完成，fileRecord=存在
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 文件信息：originalName=data_template 2行数据.csv, fileType=CSV, rowCount=2
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 查询到2条数据明细
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [数据转换] 第1行: seqNo=1, 姓名=test1, customFields={姓名=test1, 邮箱=}
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [数据转换] 第2行: seqNo=2, 姓名=test2, customFields={姓名=test2, 邮箱=}
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 转换后的数据条数=2
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 从字段配置快照（数组格式）中提取到2个自定义字段: [邮箱, 姓名]
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 最终表头: [序号, 身份证号, 手机号, 邮箱, 姓名]
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 表头数量=5
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] 开始生成CSV文件
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] CSV文件生成完成，大小=154 bytes
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [文件下载] ========== 下载流程完成，文件名=data_template 2行数据.csv, 文件大小=154 bytes ==========
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.controller.file.FileController - [文件下载] 文件生成完成，filename=data_template 2行数据.csv, size=154 bytes
-2026-03-18 15:13:52 [http-nio-8080-exec-9] INFO  c.t.f.controller.file.FileController - [文件下载] 返回文件，Content-Disposition: attachment; filename="data_template%202%E8%A1%8C%E6%95%B0%E6%8D%AE.csv", bytes=154
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.OperationLogMapper.insert - ==>  Preparing: INSERT INTO t_operation_log ( user_id, username, operation_type, description, request_ip, create_time ) VALUES ( ?, ?, ?, ?, ?, ? )
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.OperationLogMapper.insert - ==> Parameters: 24(Long), user1(String), DOWNLOAD(String), 下载文件(String), 127.0.0.1(String), 2026-03-18T15:13:52.482023(LocalDateTime)
-2026-03-18 15:13:52 [http-nio-8080-exec-9] DEBUG c.t.f.m.OperationLogMapper.insert - <==    Updates: 1
+2026-03-18 15:17:59 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-18 15:17:59 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-03-18 15:17:59 [main] INFO  c.t.f.FileManagerApplication - Started FileManagerApplication in 1.351 seconds (process running for 1.538)
+2026-03-18 15:18:03 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-18 15:18:03 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-18 15:18:03 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5849df1a
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.F.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_file_record WHERE (user_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.F.selectList_mpCount - ==> Parameters: 24(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.F.selectList_mpCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ?) ORDER BY upload_time DESC LIMIT ?
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 10(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 10
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 214(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=214, fileName=user1_20260318_22.csv, 数据条数=2
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 204(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=204, fileName=user1_20260318_21.csv, 数据条数=2
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 194(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=194, fileName=user1_20260318_20.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 184(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=184, fileName=user1_20260318_19.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 174(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=174, fileName=user1_20260318_18.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 164(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=164, fileName=user1_20260318_17.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 154(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=154, fileName=user1_20260318_16.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 144(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=144, fileName=user1_20260318_15.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 134(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=134, fileName=user1_20260318_14.xlsx, 数据条数=3
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 124(Long)
+2026-03-18 15:18:04 [http-nio-8080-exec-9] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:04 [http-nio-8080-exec-9] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=124, fileName=user1_20260318_13.xlsx, 数据条数=3
+2026-03-18 15:18:07 [http-nio-8080-exec-5] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=214
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
+2026-03-18 15:18:07 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
+2026-03-18 15:18:07 [http-nio-8080-exec-5] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
+2026-03-18 15:18:07 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=214
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 214(Long)
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 214(Long)
+2026-03-18 15:18:07 [http-nio-8080-exec-10] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
+2026-03-18 15:18:07 [http-nio-8080-exec-10] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.F.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM t_file_record WHERE (user_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.F.selectList_mpCount - ==> Parameters: 24(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.F.selectList_mpCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.FileRecordMapper.selectList - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE (user_id = ?) ORDER BY upload_time DESC LIMIT ?
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.FileRecordMapper.selectList - ==> Parameters: 24(Long), 10(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.FileRecordMapper.selectList - <==      Total: 10
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 214(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=214, fileName=user1_20260318_22.csv, 数据条数=2
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 204(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=204, fileName=user1_20260318_21.csv, 数据条数=2
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 194(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=194, fileName=user1_20260318_20.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 184(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=184, fileName=user1_20260318_19.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 174(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=174, fileName=user1_20260318_18.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 164(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=164, fileName=user1_20260318_17.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 154(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=154, fileName=user1_20260318_16.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 144(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=144, fileName=user1_20260318_15.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 134(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=134, fileName=user1_20260318_14.xlsx, 数据条数=3
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==>  Preparing: SELECT COUNT( * ) AS total FROM t_data_detail WHERE (file_id = ?)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - ==> Parameters: 124(Long)
+2026-03-18 15:18:14 [http-nio-8080-exec-1] DEBUG c.t.f.m.DataDetailMapper.selectCount - <==      Total: 1
+2026-03-18 15:18:14 [http-nio-8080-exec-1] INFO  c.t.f.service.impl.FileServiceImpl - [列表查询] 文件ID=124, fileName=user1_20260318_13.xlsx, 数据条数=3
+2026-03-18 15:18:15 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=204
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 204(Long)
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 204(Long)
+2026-03-18 15:18:15 [http-nio-8080-exec-7] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
+2026-03-18 15:18:15 [http-nio-8080-exec-7] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
+2026-03-18 15:18:15 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=204
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 204(Long)
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 204(Long)
+2026-03-18 15:18:15 [http-nio-8080-exec-2] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
+2026-03-18 15:18:15 [http-nio-8080-exec-2] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
+2026-03-18 15:18:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=204
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 204(Long)
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 204(Long)
+2026-03-18 15:18:41 [http-nio-8080-exec-8] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
+2026-03-18 15:18:41 [http-nio-8080-exec-8] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细
+2026-03-18 15:18:41 [http-nio-8080-exec-5] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询文件详情，userId=24, fileId=204
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - ==>  Preparing: SELECT id,file_name,original_name,user_id,file_type,status,row_count,field_config_snapshot,upload_time,create_time,update_time FROM t_file_record WHERE id=?
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - ==> Parameters: 204(Long)
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.m.FileRecordMapper.selectById - <==      Total: 1
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - ==>  Preparing: SELECT id,username,password,role,status,create_time,update_time FROM t_user WHERE id=?
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - ==> Parameters: 24(Long)
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.mapper.UserMapper.selectById - <==      Total: 1
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - ==>  Preparing: SELECT id,file_id,seq_no,id_card,phone,custom_fields,row_num,create_time FROM t_data_detail WHERE (file_id = ?) ORDER BY row_num ASC
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - ==> Parameters: 204(Long)
+2026-03-18 15:18:41 [http-nio-8080-exec-5] DEBUG c.t.f.m.DataDetailMapper.selectList - <==      Total: 2
+2026-03-18 15:18:41 [http-nio-8080-exec-5] INFO  c.t.f.service.impl.FileServiceImpl - [文件详情] 查询到2条数据明细

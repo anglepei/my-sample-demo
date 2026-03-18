@@ -7,6 +7,7 @@ let currentDetailParams = {
     page: 1,
     size: 10
 };
+let customFieldNames = []; // 存储自定义字段名称列表（保持顺序）
 
 /**
  * 页面加载
@@ -168,7 +169,27 @@ async function loadFileInfo() {
 function renderFieldConfigSnapshot(snapshot) {
     const container = document.getElementById('fieldConfigSnapshot');
 
-    if (!snapshot || !snapshot.fields || snapshot.fields.length === 0) {
+    // 解析字段配置快照（新格式：JSON数组字符串 ["邮箱", "姓名"]）
+    if (snapshot) {
+        try {
+            // 如果是字符串，尝试解析为JSON
+            if (typeof snapshot === 'string') {
+                customFieldNames = JSON.parse(snapshot);
+            } else if (Array.isArray(snapshot)) {
+                customFieldNames = snapshot;
+            } else if (snapshot.fields && Array.isArray(snapshot.fields)) {
+                // 兼容旧格式
+                customFieldNames = snapshot.fields.map(f => f.fieldName || f.name);
+            }
+        } catch (e) {
+            console.error('Parse field config snapshot error:', e);
+            customFieldNames = [];
+        }
+    } else {
+        customFieldNames = [];
+    }
+
+    if (!customFieldNames || customFieldNames.length === 0) {
         container.innerHTML = '<p class="text-secondary">暂无字段配置信息</p>';
         return;
     }
@@ -178,10 +199,10 @@ function renderFieldConfigSnapshot(snapshot) {
         { name: '序号', type: 'TEXT', required: true, fixed: true },
         { name: '身份证', type: 'TEXT', required: true, fixed: true },
         { name: '手机号', type: 'TEXT', required: true, fixed: true },
-        ...snapshot.fields.map(f => ({
-            name: f.fieldName || f.name,
-            type: f.fieldType || f.type,
-            required: f.required,
+        ...customFieldNames.map(name => ({
+            name: name,
+            type: 'TEXT',
+            required: false,
             fixed: false
         }))
     ];
@@ -257,9 +278,10 @@ function renderDataDetails(result) {
     const tableBody = document.getElementById('detailTableBody');
 
     if (!result.list || result.list.length === 0) {
+        const colSpan = 3 + customFieldNames.length;
         tableBody.innerHTML = `
             <tr>
-                <td colspan="3" class="text-center text-secondary" style="padding: var(--spacing-xl);">
+                <td colspan="${colSpan}" class="text-center text-secondary" style="padding: var(--spacing-xl);">
                     暂无数据
                 </td>
             </tr>
@@ -267,26 +289,23 @@ function renderDataDetails(result) {
         return;
     }
 
-    // 渲染表头（包含自定义字段）
-    const firstItem = result.list[0];
-    const customFields = firstItem.customFields ? Object.keys(firstItem.customFields) : [];
-
+    // 使用字段配置快照中的自定义字段名来渲染表头
     tableHead.innerHTML = `
         <tr>
             <th>序号</th>
             <th>身份证</th>
             <th>手机号</th>
-            ${customFields.map(field => `<th>${escapeHtml(field)}</th>`).join('')}
+            ${customFieldNames.map(field => `<th>${escapeHtml(field)}</th>`).join('')}
         </tr>
     `;
 
-    // 渲染数据
+    // 渲染数据，使用字段配置快照中的字段顺序
     tableBody.innerHTML = result.list.map(item => `
         <tr>
             <td>${escapeHtml(item.seqNo || '')}</td>
             <td>${escapeHtml(item.idCard || '')}</td>
             <td>${escapeHtml(item.phone || '')}</td>
-            ${customFields.map(field => `<td>${escapeHtml(item.customFields?.[field] || '')}</td>`).join('')}
+            ${customFieldNames.map(field => `<td>${escapeHtml(item.customFields?.[field] || '')}</td>`).join('')}
         </tr>
     `).join('');
 }
