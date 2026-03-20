@@ -5,7 +5,7 @@ spring:
   # 数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.58.11.250:3306/simulation?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://10.58.11.250:3306/simulation?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
     username: simulation
     password: sim_admin
 
@@ -66,6 +66,6 @@ logging:
     file: UTF-8
   level:
     com.traespace.filemanager: INFO
-    com.traespace.filemanager.mapper: DEBUG
+    com.traespace.filemanager.mapper: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

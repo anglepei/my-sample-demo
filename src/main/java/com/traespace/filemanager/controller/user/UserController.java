@@ -1,11 +1,15 @@
 package com.traespace.filemanager.controller.user;
 
 import com.traespace.filemanager.config.UserContext;
-import com.traespace.filemanager.entity.User;
-import com.traespace.filemanager.service.user.UserService;
+import com.traespace.filemanager.dto.request.user.RoleUpdateRequest;
 import com.traespace.filemanager.dto.response.common.Result;
+import com.traespace.filemanager.dto.response.user.RoleResponse;
+import com.traespace.filemanager.entity.User;
+import com.traespace.filemanager.enums.UserRole;
+import com.traespace.filemanager.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,5 +48,28 @@ public class UserController {
     public Result<Long> createUser(@RequestBody User user) {
         Long userId = userService.createUser(user);
         return Result.success(userId);
+    }
+
+    /**
+     * 获取当前用户角色
+     */
+    @Operation(summary = "获取当前用户角色")
+    @GetMapping("/role")
+    public Result<RoleResponse> getCurrentRole() {
+        Long userId = UserContext.getUserId();
+        RoleResponse response = userService.getCurrentRole(userId);
+        return Result.success(response);
+    }
+
+    /**
+     * 更新用户角色
+     */
+    @Operation(summary = "更新用户角色")
+    @PostMapping("/role")
+    public Result<Void> updateRole(@Valid @RequestBody RoleUpdateRequest request) {
+        Long userId = UserContext.getUserId();
+        UserRole role = UserRole.valueOf(request.getRole());
+        userService.updateRole(userId, role);
+        return Result.success();
     }
 }

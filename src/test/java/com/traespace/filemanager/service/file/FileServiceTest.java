@@ -7,10 +7,13 @@ import com.traespace.filemanager.dto.response.file.FileDetailResponse;
 import com.traespace.filemanager.dto.response.file.FileListResponse;
 import com.traespace.filemanager.entity.DataDetail;
 import com.traespace.filemanager.entity.FileRecord;
+import com.traespace.filemanager.entity.User;
 import com.traespace.filemanager.enums.FileType;
+import com.traespace.filemanager.enums.UserRole;
 import com.traespace.filemanager.exception.BizException;
 import com.traespace.filemanager.mapper.DataDetailMapper;
 import com.traespace.filemanager.mapper.FileRecordMapper;
+import com.traespace.filemanager.mapper.UserMapper;
 import com.traespace.filemanager.service.impl.FileServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,6 +49,9 @@ class FileServiceTest {
 
     @Mock
     private com.traespace.filemanager.service.field.FieldConfigService fieldConfigService;
+
+    @Mock
+    private UserMapper userMapper;
 
     @InjectMocks
     private FileServiceImpl fileService;
@@ -144,10 +150,19 @@ class FileServiceTest {
         detail.setCustomFields(new HashMap<>());
         details.add(detail);
 
+        User user = new User();
+        user.setId(userId);
+        user.setUsername("testuser");
+
+        BasePageRequest pageRequest = new BasePageRequest();
+        pageRequest.setPage(1);
+        pageRequest.setSize(10);
+
         when(fileRecordMapper.selectById(fileId)).thenReturn(fileRecord);
+        when(userMapper.selectById(userId)).thenReturn(user);
         when(dataDetailMapper.selectList(any())).thenReturn(details);
 
-        FileDetailResponse response = fileService.getFileDetail(userId, fileId, null);
+        FileDetailResponse response = fileService.getFileDetail(userId, fileId, pageRequest);
 
         assertThat(response).isNotNull();
         assertThat(response.getFileId()).isEqualTo(fileId);
@@ -199,7 +214,12 @@ class FileServiceTest {
         fileRecord.setUserId(userId);
         fileRecord.setStatus(1);
 
+        User user = new User();
+        user.setId(userId);
+        user.setRole(UserRole.USER);
+
         when(fileRecordMapper.selectById(fileId)).thenReturn(fileRecord);
+        when(userMapper.selectById(userId)).thenReturn(user);
         when(fileRecordMapper.updateById(any())).thenReturn(1);
 
         fileService.deleteFile(userId, fileId);

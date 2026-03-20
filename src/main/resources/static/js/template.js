@@ -44,6 +44,40 @@ function templatePageLoad() {
 
             <div class="card-container">
                 <div class="card-header">
+                    <h2 class="card-title">下载带测试数据的模板</h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="flex flex-column" style="gap: var(--spacing-lg); align-items: center; padding: var(--spacing-xl) 0;">
+                        <div style="font-size: 48px;">🧪</div>
+                        <div class="text-center">
+                            <p class="text-primary" style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-sm);">
+                                生成测试数据模板
+                            </p>
+                            <p class="text-secondary">
+                                模板包含随机生成的测试数据，可用于系统测试
+                            </p>
+                        </div>
+                        <div class="flex flex-column" style="gap: var(--spacing-sm); width: 100%; max-width: 300px;">
+                            <label class="form-label">数据条数：</label>
+                            <input type="number" id="dataCount" class="form-control" value="10" min="1" max="1000000"
+                                   placeholder="请输入数据条数（1-1000000）">
+                            <small class="text-secondary">最大支持 1,000,000 条数据</small>
+                        </div>
+                        <div class="flex" style="gap: var(--spacing-md);">
+                            <button class="btn btn-warning btn-lg" onclick="downloadExcelTemplateWithData()">
+                                <span>📊</span> 下载带数据 Excel
+                            </button>
+                            <button class="btn btn-info btn-lg" onclick="downloadCsvTemplateWithData()">
+                                <span>📄</span> 下载带数据 CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <div class="card-header">
                     <h2 class="card-title">字段预览</h2>
                 </div>
 
@@ -260,6 +294,152 @@ async function downloadCsvTemplate() {
         console.error('[下载] 异常:', error);
         if (error.name === 'AbortError') {
             showError('下载超时，请稍后重试');
+        } else {
+            showError(error.message || '下载失败，请检查网络连接');
+        }
+    } finally {
+        if (loadingToast) {
+            loadingToast.remove();
+        }
+    }
+}
+
+/**
+ * 下载带数据的Excel模板
+ */
+async function downloadExcelTemplateWithData() {
+    const countInput = document.getElementById('dataCount');
+    const count = parseInt(countInput.value);
+
+    // 验证输入
+    if (isNaN(count) || count < 1) {
+        showError('数据条数必须大于等于1');
+        return;
+    }
+    if (count > 1000000) {
+        showError('数据条数不能超过1,000,000');
+        return;
+    }
+
+    const loadingToast = showLoading(`正在生成 ${count} 条测试数据...`);
+
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+        const token = localStorage.getItem('auth_token');
+
+        const response = await fetch(`/api/template/download/excelWithData?count=${count}`, {
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : ''
+            },
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.status === 401) {
+            console.error('[下载] 401 未授权');
+            showError('登录已过期，请重新登录');
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('[下载] 请求失败, status:', response.status, 'response:', errorText);
+            throw new Error(`下载失败 (${response.status})`);
+        }
+
+        const blob = await response.blob();
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'data_template_with_data.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        showSuccess(`Excel模板下载成功（${count}条数据）`);
+    } catch (error) {
+        console.error('[下载] 异常:', error);
+        if (error.name === 'AbortError') {
+            showError('下载超时，请减少数据条数后重试');
+        } else {
+            showError(error.message || '下载失败，请检查网络连接');
+        }
+    } finally {
+        if (loadingToast) {
+            loadingToast.remove();
+        }
+    }
+}
+
+/**
+ * 下载带数据的CSV模板
+ */
+async function downloadCsvTemplateWithData() {
+    const countInput = document.getElementById('dataCount');
+    const count = parseInt(countInput.value);
+
+    // 验证输入
+    if (isNaN(count) || count < 1) {
+        showError('数据条数必须大于等于1');
+        return;
+    }
+    if (count > 1000000) {
+        showError('数据条数不能超过1,000,000');
+        return;
+    }
+
+    const loadingToast = showLoading(`正在生成 ${count} 条测试数据...`);
+
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+        const token = localStorage.getItem('auth_token');
+
+        const response = await fetch(`/api/template/download/csvWithData?count=${count}`, {
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : ''
+            },
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.status === 401) {
+            console.error('[下载] 401 未授权');
+            showError('登录已过期，请重新登录');
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('[下载] 请求失败, status:', response.status, 'response:', errorText);
+            throw new Error(`下载失败 (${response.status})`);
+        }
+
+        const blob = await response.blob();
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'data_template_with_data.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        showSuccess(`CSV模板下载成功（${count}条数据）`);
+    } catch (error) {
+        console.error('[下载] 异常:', error);
+        if (error.name === 'AbortError') {
+            showError('下载超时，请减少数据条数后重试');
         } else {
             showError(error.message || '下载失败，请检查网络连接');
         }

@@ -21,8 +21,9 @@ public interface OperationLogService {
      * @param operationType  操作类型
      * @param description    操作描述
      * @param requestIp      请求IP
+     * @param costTime       耗时（毫秒）
      */
-    void saveLog(Long userId, String username, OperationType operationType, String description, String requestIp);
+    void saveLog(Long userId, String username, OperationType operationType, String description, String requestIp, Long costTime);
 
     /**
      * 获取操作日志分页

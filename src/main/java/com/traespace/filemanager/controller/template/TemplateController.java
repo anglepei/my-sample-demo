@@ -1,14 +1,19 @@
 package com.traespace.filemanager.controller.template;
 
+import com.traespace.filemanager.annotation.Log;
 import com.traespace.filemanager.config.UserContext;
+import com.traespace.filemanager.enums.OperationType;
 import com.traespace.filemanager.service.template.TemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,6 +37,7 @@ public class TemplateController {
      * 下载Excel模板
      */
     @Operation(summary = "下载Excel模板")
+    @Log(value = OperationType.DOWNLOAD, description = "下载Excel模板")
     @GetMapping(value = "/download/excel", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> downloadExcelTemplate() {
         Long userId = UserContext.getUserId();
@@ -50,6 +56,7 @@ public class TemplateController {
      * 下载CSV模板
      */
     @Operation(summary = "下载CSV模板")
+    @Log(value = OperationType.DOWNLOAD, description = "下载CSV模板")
     @GetMapping(value = "/download/csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> downloadCsvTemplate() {
         Long userId = UserContext.getUserId();
@@ -57,6 +64,48 @@ public class TemplateController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentDispositionFormData("attachment", "data_template.csv");
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(csvBytes);
+    }
+
+    /**
+     * 下载带数据的Excel模板
+     */
+    @Operation(summary = "下载带数据的Excel模板")
+    @Log(value = OperationType.DOWNLOAD, description = "下载带数据的Excel模板")
+    @GetMapping(value = "/download/excelWithData", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> downloadExcelTemplateWithData(
+            @RequestParam(defaultValue = "10") @Min(1) @Max(1000000) int count) {
+
+        Long userId = UserContext.getUserId();
+        byte[] excelBytes = templateService.generateExcelTemplateWithData(userId, count);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDispositionFormData("attachment", "data_template_with_data.xlsx");
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(excelBytes);
+    }
+
+    /**
+     * 下载带数据的CSV模板
+     */
+    @Operation(summary = "下载带数据的CSV模板")
+    @Log(value = OperationType.DOWNLOAD, description = "下载带数据的CSV模板")
+    @GetMapping(value = "/download/csvWithData", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> downloadCsvTemplateWithData(
+            @RequestParam(defaultValue = "10") @Min(1) @Max(1000000) int count) {
+
+        Long userId = UserContext.getUserId();
+        byte[] csvBytes = templateService.generateCsvTemplateWithData(userId, count);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDispositionFormData("attachment", "data_template_with_data.csv");
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
         return ResponseEntity.ok()

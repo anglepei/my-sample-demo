@@ -126,6 +126,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>
+                        -Xmx2g -Xms1g
+                        -Xlog:gc*:file=gc.log:time,tags:level,tid
+                        -XX:+PrintGCDetails
+                        -XX:+PrintGCDateStamps
+                        -XX:+UseG1GC
+                        -XX:MaxGCPauseMillis=200
+                        -XX:+HeapDumpOnOutOfMemoryError
+                        -XX:HeapDumpPath=heapdump.hprof
+                    </jvmArguments>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

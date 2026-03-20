@@ -3,6 +3,7 @@ package com.traespace.filemanager.service.template;
 import com.traespace.filemanager.entity.FieldConfig;
 import com.traespace.filemanager.enums.FieldType;
 import com.traespace.filemanager.service.impl.TemplateServiceImpl;
+import com.traespace.filemanager.util.MockDataGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 /**
@@ -96,6 +98,109 @@ class TemplateServiceTest {
         when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(new ArrayList<>());
 
         byte[] excelBytes = templateService.generateExcelTemplate(userId);
+
+        assertThat(excelBytes).isNotNull();
+        assertThat(excelBytes.length).isGreaterThan(0);
+    }
+
+    // ========== 带数据模板测试 ==========
+
+    @Test
+    void testGenerateExcelTemplateWithData_SmallCount() {
+        // 测试生成带少量数据的Excel模板
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(new ArrayList<>());
+
+        byte[] excelBytes = templateService.generateExcelTemplateWithData(userId, 10);
+
+        assertThat(excelBytes).isNotNull();
+        assertThat(excelBytes.length).isGreaterThan(0);
+    }
+
+    @Test
+    void testGenerateExcelTemplateWithData_WithCustomFields() {
+        // 测试带自定义字段生成Excel模板
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(
+                fieldConfigs.stream()
+                        .map(this::convertToItem)
+                        .toList()
+        );
+
+        byte[] excelBytes = templateService.generateExcelTemplateWithData(userId, 5);
+
+        assertThat(excelBytes).isNotNull();
+        assertThat(excelBytes.length).isGreaterThan(0);
+    }
+
+    @Test
+    void testGenerateCsvTemplateWithData_SmallCount() {
+        // 测试生成带少量数据的CSV模板
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(new ArrayList<>());
+
+        byte[] csvBytes = templateService.generateCsvTemplateWithData(userId, 10);
+
+        assertThat(csvBytes).isNotNull();
+        assertThat(csvBytes.length).isGreaterThan(0);
+
+        // 验证CSV内容格式（CSV带引号）
+        String csvContent = new String(csvBytes);
+        assertThat(csvContent).contains("\"序号\",\"身份证号\",\"手机号\"");
+    }
+
+    @Test
+    void testGenerateCsvTemplateWithData_WithCustomFields() {
+        // 测试带自定义字段生成CSV模板
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(
+                fieldConfigs.stream()
+                        .map(this::convertToItem)
+                        .toList()
+        );
+
+        byte[] csvBytes = templateService.generateCsvTemplateWithData(userId, 5);
+
+        assertThat(csvBytes).isNotNull();
+        assertThat(csvBytes.length).isGreaterThan(0);
+
+        // 验证CSV包含自定义字段名
+        String csvContent = new String(csvBytes);
+        assertThat(csvContent).contains("联系地址");
+        assertThat(csvContent).contains("出生日期");
+    }
+
+    // ========== 边界条件测试 ==========
+
+    @Test
+    void testGenerateExcelTemplateWithData_CountEqualsOne() {
+        // 测试生成1条数据
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(new ArrayList<>());
+
+        byte[] excelBytes = templateService.generateExcelTemplateWithData(userId, 1);
+
+        assertThat(excelBytes).isNotNull();
+        assertThat(excelBytes.length).isGreaterThan(0);
+    }
+
+    @Test
+    void testGenerateCsvTemplateWithData_CountEqualsOne() {
+        // 测试生成1条CSV数据
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(new ArrayList<>());
+
+        byte[] csvBytes = templateService.generateCsvTemplateWithData(userId, 1);
+
+        assertThat(csvBytes).isNotNull();
+        assertThat(csvBytes.length).isGreaterThan(0);
+
+        // 验证只有表头和1行数据（共2行）
+        String csvContent = new String(csvBytes);
+        long lineCount = csvContent.split("\n").length;
+        assertThat(lineCount).isGreaterThanOrEqualTo(2);
+    }
+
+    @Test
+    void testGenerateTemplateWithData_LargeCount() {
+        // 测试生成较大数据量（模拟，用100条）
+        when(fieldConfigService.getFieldConfigByUserId(userId)).thenReturn(new ArrayList<>());
+
+        byte[] excelBytes = templateService.generateExcelTemplateWithData(userId, 100);
 
         assertThat(excelBytes).isNotNull();
         assertThat(excelBytes.length).isGreaterThan(0);

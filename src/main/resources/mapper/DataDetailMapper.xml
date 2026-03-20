@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.traespace.filemanager.mapper.DataDetailMapper">
+
+    <!-- 批量插入数据明细 -->
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO t_data_detail (file_id, seq_no, id_card, phone, custom_fields, row_num, create_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fileId}, #{item.seqNo}, #{item.idCard}, #{item.phone},
+             #{item.customFields,typeHandler=com.traespace.filemanager.handler.JsonTypeHandler},
+             #{item.rowNum}, NOW())
+        </foreach>
+    </insert>
+
+</mapper>

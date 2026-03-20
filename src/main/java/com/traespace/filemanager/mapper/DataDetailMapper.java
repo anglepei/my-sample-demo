@@ -18,6 +18,11 @@ import java.util.List;
 public interface DataDetailMapper extends BaseMapper<DataDetail> {
 
     /**
+     * 批量插入数据明细（性能优化）
+     */
+    void insertBatch(@Param("list") List<DataDetail> list);
+
+    /**
      * 根据文件ID查询数据详情
      */
     @Select("SELECT id, file_id, seq_no, id_card, phone, " +

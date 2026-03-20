@@ -47,6 +47,11 @@ public class OperationLogItemVO {
      */
     private LocalDateTime createTime;
 
+    /**
+     * 耗时（毫秒）
+     */
+    private Long costTime;
+
     public Long getId() {
         return id;
     }
@@ -107,6 +112,15 @@ public class OperationLogItemVO {
 
     public OperationLogItemVO setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+        return this;
+    }
+
+    public Long getCostTime() {
+        return costTime;
+    }
+
+    public OperationLogItemVO setCostTime(Long costTime) {
+        this.costTime = costTime;
         return this;
     }
 }

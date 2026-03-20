@@ -48,8 +48,14 @@ public class OperationLogAspect {
         // 获取请求IP
         String clientIp = getClientIp();
 
+        // 记录开始时间
+        long startTime = System.currentTimeMillis();
+
         // 执行原方法
         Object result = joinPoint.proceed();
+
+        // 计算耗时
+        long costTime = System.currentTimeMillis() - startTime;
 
         // 保存操作日志
         try {
@@ -58,7 +64,8 @@ public class OperationLogAspect {
                     username,
                     logAnnotation.value(),
                     logAnnotation.description(),
-                    clientIp
+                    clientIp,
+                    costTime
             );
         } catch (Exception e) {
             log.error("[操作日志] 保存日志失败, userId={}, operation={}", userId, logAnnotation.value(), e);

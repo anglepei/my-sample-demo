@@ -47,9 +47,10 @@ class CsvUtilTest {
         assertThat(csvBytes.length).isGreaterThan(0);
 
         String csvContent = new String(csvBytes, StandardCharsets.UTF_8);
-        assertThat(csvContent).contains("姓名,年龄");
-        assertThat(csvContent).contains("张三,25");
-        assertThat(csvContent).contains("李四,30");
+        // CSV格式带引号
+        assertThat(csvContent).contains("\"姓名\",\"年龄\"");
+        assertThat(csvContent).contains("\"张三\",\"25\"");
+        assertThat(csvContent).contains("\"李四\",\"30\"");
     }
 
     @Test

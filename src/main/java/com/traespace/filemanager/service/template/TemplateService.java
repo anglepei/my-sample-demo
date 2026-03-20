@@ -27,4 +27,24 @@ public interface TemplateService {
      * @return CSV文件的字节数组
      */
     byte[] generateCsvTemplate(Long userId);
+
+    /**
+     * 生成带数据的Excel模板
+     * 包含固定字段和随机生成的测试数据
+     *
+     * @param userId 用户ID
+     * @param count 数据条数
+     * @return Excel文件的字节数组
+     */
+    byte[] generateExcelTemplateWithData(Long userId, int count);
+
+    /**
+     * 生成带数据的CSV模板
+     * 包含固定字段和随机生成的测试数据
+     *
+     * @param userId 用户ID
+     * @param count 数据条数
+     * @return CSV文件的字节数组
+     */
+    byte[] generateCsvTemplateWithData(Long userId, int count);
 }

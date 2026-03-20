@@ -31,13 +31,14 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
-    public void saveLog(Long userId, String username, OperationType operationType, String description, String requestIp) {
+    public void saveLog(Long userId, String username, OperationType operationType, String description, String requestIp, Long costTime) {
         OperationLog log = new OperationLog();
         log.setUserId(userId);
         log.setUsername(username);
         log.setOperationType(operationType);
         log.setDescription(description);
         log.setRequestIp(requestIp);
+        log.setCostTime(costTime);
         log.setCreateTime(LocalDateTime.now());
         operationLogMapper.insert(log);
     }
@@ -76,6 +77,7 @@ public class OperationLogServiceImpl implements OperationLogService {
             vo.setDescription(log.getDescription());
             vo.setRequestIp(log.getRequestIp());
             vo.setCreateTime(log.getCreateTime());
+            vo.setCostTime(log.getCostTime());
             result.add(vo);
         }
         return result;

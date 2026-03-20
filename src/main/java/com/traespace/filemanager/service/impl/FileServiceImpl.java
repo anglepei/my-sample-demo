@@ -12,16 +12,15 @@ import com.traespace.filemanager.entity.User;
 import com.traespace.filemanager.enums.ErrorCode;
 import com.traespace.filemanager.enums.FileType;
 import com.traespace.filemanager.exception.BizException;
+import com.traespace.filemanager.handler.JsonTypeHandler;
 import com.traespace.filemanager.mapper.DataDetailMapper;
 import com.traespace.filemanager.mapper.FileRecordMapper;
 import com.traespace.filemanager.mapper.UserMapper;
 import com.traespace.filemanager.service.field.FieldConfigService;
 import com.traespace.filemanager.service.file.FileService;
-import com.traespace.filemanager.service.file.FileService.FileDownloadResult;
 import com.traespace.filemanager.util.CsvUtil;
 import com.traespace.filemanager.util.ExcelUtil;
 import com.traespace.filemanager.util.ValidationUtil;
-import com.traespace.filemanager.handler.JsonTypeHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,13 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 文件服务实现
@@ -54,9 +47,9 @@ public class FileServiceImpl implements FileService {
     private final UserMapper userMapper;
 
     public FileServiceImpl(FileRecordMapper fileRecordMapper,
-                          DataDetailMapper dataDetailMapper,
-                          FieldConfigService fieldConfigService,
-                          UserMapper userMapper) {
+                           DataDetailMapper dataDetailMapper,
+                           FieldConfigService fieldConfigService,
+                           UserMapper userMapper) {
         this.fileRecordMapper = fileRecordMapper;
         this.dataDetailMapper = dataDetailMapper;
         this.fieldConfigService = fieldConfigService;
@@ -295,19 +288,35 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteFile(Long userId, Long fileId) {
+        // 1. 检查文件是否存在
         FileRecord fileRecord = fileRecordMapper.selectById(fileId);
-        if (fileRecord == null || !fileRecord.getUserId().equals(userId)) {
+        if (fileRecord == null) {
             throw new BizException(ErrorCode.FILE_NOT_FOUND);
         }
 
-        // 软删除文件记录
+        // 2. 获取当前用户信息（包含角色）
+        User currentUser = userMapper.selectById(userId);
+        if (currentUser == null) {
+            throw new BizException(ErrorCode.USER_NOT_FOUND);
+        }
+
+        // 3. 权限校验：管理员或文件所有者可以删除
+        if (currentUser.getRole() != com.traespace.filemanager.enums.UserRole.ADMIN
+                && !fileRecord.getUserId().equals(userId)) {
+            throw new BizException(ErrorCode.PERMISSION_DENIED);
+        }
+
+        // 4. 软删除文件记录
         fileRecord.setStatus(0);
         fileRecordMapper.updateById(fileRecord);
 
-        // 删除数据明细
+        // 5. 删除数据明细
         LambdaQueryWrapper<DataDetail> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(DataDetail::getFileId, fileId);
         dataDetailMapper.delete(wrapper);
+
+        log.info("[文件删除] 文件删除成功, fileId={}, operatorId={}, operatorRole={}",
+                fileId, userId, currentUser.getRole());
     }
 
     /**
@@ -354,26 +363,26 @@ public class FileServiceImpl implements FileService {
 
             if (idCard != null && !idCard.trim().isEmpty() && !ValidationUtil.isValidIdCard(idCard)) {
                 throw new BizException(ErrorCode.ID_CARD_ERROR,
-                    String.format("第%d行身份证号格式错误: %s", rowNumber, idCard));
+                        String.format("第%d行身份证号格式错误: %s", rowNumber, idCard));
             }
             if (phone != null && !phone.trim().isEmpty() && !ValidationUtil.isValidPhone(phone)) {
                 throw new BizException(ErrorCode.PHONE_ERROR,
-                    String.format("第%d行手机号格式错误: %s", rowNumber, phone));
+                        String.format("第%d行手机号格式错误: %s", rowNumber, phone));
             }
         }
     }
 
     /**
-     * 保存数据明细
+     * 保存数据明细（批量插入优化）
      */
     private void saveDataDetails(Long fileId, List<Map<String, String>> data) {
         log.info("[数据保存] 开始保存数据明细，fileId={}, 数据总行数={}", fileId, data.size());
 
-        // data只包含数据行，不包含表头，从索引0开始处理
-        int insertCount = 0;
+        final int BATCH_SIZE = 5000; // 每批5000条
+        List<DataDetail> batch = new ArrayList<>(BATCH_SIZE);
+
         for (int i = 0; i < data.size(); i++) {
             Map<String, String> row = data.get(i);
-            log.info("[数据保存] 处理第{}行数据: {}", i + 1, row);
 
             DataDetail detail = new DataDetail();
             detail.setFileId(fileId);
@@ -388,13 +397,23 @@ public class FileServiceImpl implements FileService {
             customFields.remove("手机号");
             detail.setCustomFields(customFields);
 
-            detail.setRowNum(i + 1); // 行号从1开始
-            dataDetailMapper.insert(detail);
-            insertCount++;
-            log.info("[数据保存] 第{}行已插入，detailId={}", i + 1, detail.getId());
+            detail.setRowNum(i + 1);
+            batch.add(detail);
+
+            // 达到批次大小时执行批量插入
+            if (batch.size() >= BATCH_SIZE) {
+                dataDetailMapper.insertBatch(batch);
+                log.info("[数据保存] 已插入 {}/{} 行数据", i + 1, data.size());
+                batch.clear();
+            }
         }
 
-        log.info("[数据保存] 完成，共插入{}条记录到t_data_detail", insertCount);
+        // 插入剩余数据
+        if (!batch.isEmpty()) {
+            dataDetailMapper.insertBatch(batch);
+        }
+
+        log.info("[数据保存] 完成，共插入{}条记录到t_data_detail", data.size());
     }
 
     /**
@@ -454,7 +473,7 @@ public class FileServiceImpl implements FileService {
             if (detail.getCustomFields() != null) {
                 row.putAll(detail.getCustomFields());
                 log.info("[数据转换] 第{}行: seqNo={}, 姓名={}, customFields={}",
-                    i + 1, detail.getSeqNo(), detail.getCustomFields().get("姓名"), detail.getCustomFields());
+                        i + 1, detail.getSeqNo(), detail.getCustomFields().get("姓名"), detail.getCustomFields());
             } else {
                 log.info("[数据转换] 第{}行: seqNo={}, customFields=null", i + 1, detail.getSeqNo());
             }

@@ -20,25 +20,29 @@ function logPageLoad() {
 
             <!-- 搜索表单 -->
             <div class="card-container">
-                <form id="logSearchForm" class="search-form" onsubmit="event.preventDefault(); searchLogs();">
-                    <div class="form-item">
+                <form id="logSearchForm" class="search-form" onsubmit="event.preventDefault(); searchLogs();"
+                      style="display: flex; flex-wrap: wrap; gap: var(--spacing-md); align-items: flex-end;">
+                    <div class="form-item" style="margin-bottom: 0;">
                         <label class="form-item-label">用户名</label>
-                        <input type="text" class="input" name="username" placeholder="请输入用户名">
+                        <input type="text" class="input" name="username" placeholder="请输入用户名" style="width: 150px;">
                     </div>
-                    <div class="form-item">
+                    <div class="form-item" style="margin-bottom: 0;">
                         <label class="form-item-label">操作类型</label>
-                        <select class="select" name="operationType">
+                        <select class="select" name="operationType" style="width: 150px;">
                             <option value="">全部</option>
                             <option value="UPLOAD">上传文件</option>
                             <option value="DELETE">删除文件</option>
                         </select>
                     </div>
-                    <div class="form-item">
-                        <label class="form-item-label">操作时间</label>
-                        <input type="date" class="input" name="startDate" placeholder="开始日期">
-                        <input type="date" class="input" name="endDate" placeholder="结束日期" style="margin-top: var(--spacing-sm);">
+                    <div class="form-item" style="margin-bottom: 0;">
+                        <label class="form-item-label">开始日期</label>
+                        <input type="date" class="input" name="startDate" placeholder="开始日期" style="width: 150px;">
                     </div>
-                    <div class="search-actions">
+                    <div class="form-item" style="margin-bottom: 0;">
+                        <label class="form-item-label">结束日期</label>
+                        <input type="date" class="input" name="endDate" placeholder="结束日期" style="width: 150px;">
+                    </div>
+                    <div class="search-actions" style="margin-bottom: 0;">
                         <button type="submit" class="btn btn-primary">搜索</button>
                         <button type="button" class="btn btn-secondary" onclick="resetLogSearch()">重置</button>
                     </div>
