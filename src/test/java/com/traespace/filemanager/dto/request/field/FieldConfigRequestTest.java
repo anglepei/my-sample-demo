@@ -38,12 +38,12 @@ class FieldConfigRequestTest {
 
     @Test
     void testEmptyFields() {
-        // 测试空字段列表
+        // 空列表表示清空全部自定义字段，允许通过校验
         FieldConfigRequest request = new FieldConfigRequest();
         request.setFields(new ArrayList<>());
 
         Set<ConstraintViolation<FieldConfigRequest>> violations = validator.validate(request);
-        assertThat(violations).isNotEmpty();
+        assertThat(violations).isEmpty();
     }
 
     @Test
